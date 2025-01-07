@@ -11,6 +11,13 @@ export default {
     ],
     theme: {
         extend: {
+            colors: {
+                burgundy: '#800020',
+                maroon: '#4B1E24',
+                peach: '#F4E1D2',
+                taupe: '#B89C88',
+                beige: '#E5D3C5',
+            },
             fontFamily: {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
             },
