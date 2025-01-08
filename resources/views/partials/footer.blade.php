@@ -19,9 +19,9 @@
                 <h2 class="text-lg font-semibold text-[#6B1E1E] ">Navigasi</h2>
                 <ul class="mt-3 space-y-2">
                     <li><a href="{{ route('home') }}" class="text-sm text-[#593C39] hover:text-white hover:bg-[#B08C7A] rounded-md  py-1">Beranda</a></li>
-                    <li><a href="{{ route('about') }}" class="text-sm text-[#593C39] hover:text-white hover:bg-[#B08C7A] rounded-md  py-1">Konten Hukum</a></li>
+                    <li><a href="{{ route('about') }}" class="text-sm text-[#593C39] hover:text-white hover:bg-[#B08C7A] rounded-md  py-1">Tentang Kami</a></li>
                     <li><a href="{{ route('consultation') }}" class="text-sm text-[#593C39] hover:text-white hover:bg-[#B08C7A] rounded-md  py-1">Konsultasi</a></li>
-                    <li><a href="{{ route('contact') }}" class="text-sm text-[#593C39] hover:text-white hover:bg-[#B08C7A] rounded-md  py-1">Tentang Kami</a></li>
+                    <li><a href="{{ route('contact') }}" class="text-sm text-[#593C39] hover:text-white hover:bg-[#B08C7A] rounded-md  py-1">Konten Hukum</a></li>
                 </ul>
             </div>
 

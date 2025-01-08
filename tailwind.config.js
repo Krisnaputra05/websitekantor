@@ -11,6 +11,31 @@ export default {
     ],
     theme: {
         extend: {
+                animation: {
+                    'fade-in-down': 'fade-in-down 0.8s ease-out',
+                    'fade-in-up': 'fade-in-up 0.8s ease-out',
+                    'zoom-in': 'zoom-in 0.8s ease-out',
+                    'slide-in-bottom': 'slide-in-bottom 0.8s ease-out',
+                },
+                keyframes: {
+                    'fade-in-down': {
+                        '0%': { opacity: '0', transform: 'translateY(-20px)' },
+                        '100%': { opacity: '1', transform: 'translateY(0)' },
+                    },
+                    'fade-in-up': {
+                        '0%': { opacity: '0', transform: 'translateY(20px)' },
+                        '100%': { opacity: '1', transform: 'translateY(0)' },
+                    },
+                    'zoom-in': {
+                        '0%': { opacity: '0', transform: 'scale(0.9)' },
+                        '100%': { opacity: '1', transform: 'scale(1)' },
+                    },
+                    'slide-in-bottom': {
+                        '0%': { opacity: '0', transform: 'translateY(30px)' },
+                        '100%': { opacity: '1', transform: 'translateY(0)' },
+                    },
+                },
+                
             colors: {
                 burgundy: '#800020',
                 maroon: '#4B1E24',

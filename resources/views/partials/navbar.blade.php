@@ -25,16 +25,18 @@
                 <div class="hidden lg:ml-6 lg:block">
                     <div class="flex space-x-4">
                         <a href="{{ route('home') }}" class="rounded-md px-3 py-2 text-sm font-medium text-[#6B1E1E] hover:bg-[#B08C7A] hover:text-white {{ request()->routeIs('home') ? 'bg-[#B08C7A] text-white' : '' }}">Beranda</a>
-                        <a href="{{ route('about') }}" class="rounded-md px-3 py-2 text-sm font-medium text-[#593C39] hover:bg-[#B08C7A] hover:text-white {{ request()->routeIs('about') ? 'bg-[#B08C7A] text-white' : '' }}">Konten Hukum</a>
+                        <a href="{{ route('about') }}" class="rounded-md px-3 py-2 text-sm font-medium text-[#593C39] hover:bg-[#B08C7A] hover:text-white {{ request()->routeIs('about') ? 'bg-[#B08C7A] text-white' : '' }}">Tentang Kami</a>
                         <a href="{{ route('consultation') }}" class="rounded-md px-3 py-2 text-sm font-medium text-[#593C39] hover:bg-[#B08C7A] hover:text-white {{ request()->routeIs('consultation') ? 'bg-[#B08C7A] text-white' : '' }}">Konsultasi</a>
-                        <a href="{{ route('contact') }}" class="rounded-md px-3 py-2 text-sm font-medium text-[#593C39] hover:bg-[#B08C7A] hover:text-white {{ request()->routeIs('contact') ? 'bg-[#B08C7A] text-white' : '' }}">Tentang Kami</a>
+                        <a href="{{ route('contact') }}" class="rounded-md px-3 py-2 text-sm font-medium text-[#593C39] hover:bg-[#B08C7A] hover:text-white {{ request()->routeIs('contact') ? 'bg-[#B08C7A] text-white' : '' }}">Konten Hukum</a>
                     </div>
                 </div>
             </div>
 
             <!-- Call-to-Action Button -->
             <div class="absolute inset-y-0 right-0 flex items-center pr-2 lg:static lg:inset-auto lg:ml-6 lg:pr-0">
-                <a href="#" class="hidden lg:flex items-center px-4 py-2 border border-[#B08C7A] rounded-md text-sm font-medium text-[#6B1E1E] hover:bg-[#A43D3D] hover:text-white">
+                <a href="https://wa.me/6281234567890?text=Halo,%20saya%20ingin%20konsultasi%20dengan%20Sari%20Law%20Office."
+                    target="_blank"
+                    class="hidden lg:flex items-center px-4 py-2 border border-[#B08C7A] rounded-md text-sm font-medium text-[#6B1E1E] hover:bg-[#A43D3D] hover:text-white">
                     <svg class="h-5 w-5 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h4l3 10h4l3-10h4" />
                     </svg>
@@ -45,12 +47,12 @@
     </div>
 
     <!-- Mobile Menu -->
-    <div id="mobile-menu" class="hidden lg:hidden"> 
+    <div id="mobile-menu" class="hidden lg:hidden">
         <div class="space-y-1 px-2 pb-3 pt-2">
             <a href="{{ route('home') }}" class="block rounded-md bg-[#B08C7A] px-3 py-2 text-base font-medium text-white">Beranda</a>
-            <a href="{{ route('about') }}" class="block rounded-md px-3 py-2 text-base font-medium text-[#593C39] hover:bg-[#B08C7A] hover:text-white">Konten Hukum</a>
+            <a href="{{ route('about') }}" class="block rounded-md px-3 py-2 text-base font-medium text-[#593C39] hover:bg-[#B08C7A] hover:text-white">Tentang Kami</a>
             <a href="{{ route('consultation') }}" class="block rounded-md px-3 py-2 text-base font-medium text-[#593C39] hover:bg-[#B08C7A] hover:text-white">Konsultasi</a>
-            <a href="{{ route('contact') }}" class="block rounded-md px-3 py-2 text-base font-medium text-[#593C39] hover:bg-[#B08C7A] hover:text-white">Tentang Kami</a>
+            <a href="{{ route('contact') }}" class="block rounded-md px-3 py-2 text-base font-medium text-[#593C39] hover:bg-[#B08C7A] hover:text-white">Konten Hukum</a>
         </div>
     </div>
 </nav>

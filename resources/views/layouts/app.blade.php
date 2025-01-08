@@ -15,6 +15,7 @@
         @yield('content')
     </main>
 
+    @include('partials.google-maps')
     @include('partials.footer')
     <script src="/js/navbar.js"></script>
 </body>
