@@ -63,7 +63,7 @@
 
 <div class="container mx-auto py-32">
     <div class="text-center">
-        <h1 class="text-9xl font-bold text-gray-800 mb-4">LAYANAN KAMI</h1>
+        <h1 class="text-9xl font-bold text-gray-800 mb-4">Layanan Kami</h1>
         <h2 class="text-5x1 font-semibold text-gray-600 mb-10">Berikut layanan hukum terbaik kami</h2>
     </div>
 
