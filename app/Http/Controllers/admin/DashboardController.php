@@ -9,12 +9,12 @@ class DashboardController extends Controller
 {
     public function index()
     {
+        // Statistik artikel untuk admin
         $totalArticles = Article::count();
-        $publishedArticles = Article::where('status', 'published')->count();
-        $draftArticles = Article::where('status', 'draft')->count();
-        $totalViews = Article::sum('views'); // Total views dari semua artikel
+        $publishedArticles = Article::published()->count();
+        $draftArticles = Article::draft()->count();
+        $totalViews = Article::published()->sum('views'); // Hanya hitung views artikel yang published
 
         return view('admin.dashboard', compact('totalArticles', 'publishedArticles', 'draftArticles', 'totalViews'));
     }
 }
-

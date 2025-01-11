@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Article;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -44,31 +45,33 @@ class ArticleController extends Controller
             ->with('success', 'Article created successfully');
     }
 
-    public function edit(Article $article)
-    {
-        return view('admin.articles.edit', compact('article'));
+    public function edit($id)
+{
+    $article = Article::findOrFail($id);
+    $categories = Category::all();
+
+    return view('admin.articles.edit', compact('article', 'categories'));
+}
+
+public function update(Request $request, Article $article)
+{
+    $validated = $request->validate([
+        'title' => 'required|string|max:255',
+        'content' => 'required',
+        'status' => 'required|in:published,draft',
+        'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+    ]);
+
+    if ($request->hasFile('image')) {
+        $validated['image'] = $request->file('image')->store('articles');
     }
 
-    public function update(Request $request, Article $article)
-    {
-        $validated = $request->validate([
-            'title' => 'required|max:255',
-            'content' => 'required',
-            'image' => 'nullable|image|max:2048',
-            'status' => 'required|in:draft,published',
-        ]);
+    $article->update($validated);
 
-        $validated['slug'] = Str::slug($validated['title']);
+    return redirect()->route('admin.articles.edit', $article->id)
+        ->with('success', 'Article updated successfully!');
+}
 
-        if ($request->hasFile('image')) {
-            $validated['image'] = $request->file('image')->store('articles', 'public');
-        }
-
-        $article->update($validated);
-
-        return redirect()->route('admin.articles.index')
-            ->with('success', 'Article updated successfully');
-    }
 
     public function destroy(Article $article)
     {
