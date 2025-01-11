@@ -48,7 +48,6 @@ class ArticleController extends Controller
     public function edit($id)
 {
     $article = Article::findOrFail($id);
-    $categories = Category::all();
 
     return view('admin.articles.edit', compact('article', 'categories'));
 }
