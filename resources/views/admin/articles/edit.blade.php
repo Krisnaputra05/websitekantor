@@ -7,17 +7,21 @@
 @section('content')
 <div class="bg-white shadow rounded-lg">
     <div class="p-6">
-        <!-- Notifikasi Popup -->
         @if(session('success'))
-            <div id="successPopup" class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4" role="alert">
-                <span class="block sm:inline">{{ session('success') }}</span>
-                <span class="absolute top-0 bottom-0 right-0 px-4 py-3" onclick="closePopup()">
-                    <svg class="fill-current h-6 w-6 text-green-500" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                        <title>Close</title>
-                        <path d="M14.348 5.652a.5.5 0 0 1 0 .707L11.707 9l2.641 2.641a.5.5 0 0 1-.707.707L11 9.707l-2.641 2.641a.5.5 0 0 1-.707-.707L9.293 9 6.652 6.348a.5.5 0 1 1 .707-.707L11 8.293l2.641-2.641a.5.5 0 0 1 .707 0z"/>
+        <div id="successPopup" class="fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center z-50">
+            <div class="bg-white rounded-lg shadow-lg p-6 max-w-sm text-center">
+                <div class="flex justify-center mb-4">
+                    <svg class="w-12 h-12 text-green-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                     </svg>
-                </span>
+                </div>
+                <h2 class="text-xl font-semibold text-gray-800 mb-2">Success!</h2>
+                <p class="text-gray-600 mb-4">{{ session('success') }}</p>
+                <button onclick="closePopup()" class="bg-purple-500 text-white px-4 py-2 rounded hover:bg-purple-600 focus:outline-none focus:ring-2 focus:ring-purple-400">
+                    OK
+                </button>
             </div>
+        </div>
         @endif
 
         <!-- Form Edit Artikel -->
@@ -55,7 +59,7 @@
                 </label>
                 <div class="mb-2">
                     @if ($article->image)
-                        <img src="{{ asset('storage/' . $article->image) }}" alt="Current Image" class="h-32 mb-2">
+                    <img src="{{ asset('storage/' . $article->image) }}" alt="Current Image" class="h-32 mb-2">
                     @endif
                 </div>
                 <input type="file" name="image" id="image"
@@ -101,21 +105,21 @@
         height: 500,
         menubar: false,
         content_style: "body { font-family:Arial,Helvetica,sans-serif; font-size:14px }",
-        setup: function (editor) {
-            editor.on('change', function () {
+        setup: function(editor) {
+            editor.on('change', function() {
                 editor.save(); // Ensure synchronization between TinyMCE and the form's textarea
             });
         }
     });
 
     // Ensure TinyMCE data is saved before submitting the form
-    document.querySelector('form').addEventListener('submit', function () {
+    document.querySelector('form').addEventListener('submit', function() {
         tinymce.triggerSave();
     });
 
-    // Popup close function
-    function closePopup() {
-        document.getElementById('successPopup').style.display = 'none';
-    }
+    // // Popup close function
+    // function closePopup() {
+    //     document.getElementById('successPopup').style.display = 'none';
+    // }
 </script>
 @endsection

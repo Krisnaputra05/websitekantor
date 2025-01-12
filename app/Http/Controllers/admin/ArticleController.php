@@ -16,7 +16,6 @@ class ArticleController extends Controller
         $totalArticles = Article::count(); // Total artikel
 
         return view('admin.articles.index', compact('articles', 'totalArticles'));
-        
     }
 
     public function create()
@@ -34,7 +33,7 @@ class ArticleController extends Controller
         ]);
 
         $validated['slug'] = Str::slug($validated['title']);
-        
+
         if ($request->hasFile('image')) {
             $validated['image'] = $request->file('image')->store('articles', 'public');
         }
@@ -46,30 +45,30 @@ class ArticleController extends Controller
     }
 
     public function edit($id)
-{
-    $article = Article::findOrFail($id);
+    {
+        $article = Article::findOrFail($id);
 
-    return view('admin.articles.edit', compact('article', 'categories'));
-}
-
-public function update(Request $request, Article $article)
-{
-    $validated = $request->validate([
-        'title' => 'required|string|max:255',
-        'content' => 'required',
-        'status' => 'required|in:published,draft',
-        'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
-    ]);
-
-    if ($request->hasFile('image')) {
-        $validated['image'] = $request->file('image')->store('articles');
+        return view('admin.articles.edit', compact('article'));
     }
 
-    $article->update($validated);
+    public function update(Request $request, Article $article)
+    {
+        $validated = $request->validate([
+            'title' => 'required|string|max:255',
+            'content' => 'required',
+            'status' => 'required|in:published,draft',
+            'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+        ]);
 
-    return redirect()->route('admin.articles.edit', $article->id)
-        ->with('success', 'Article updated successfully!');
-}
+        if ($request->hasFile('image')) {
+            $validated['image'] = $request->file('image')->store('articles');
+        }
+
+        $article->update($validated);
+
+        return redirect()->route('admin.articles.edit', $article->id)
+            ->with('success', 'Article updated successfully!');
+    }
 
 
     public function destroy(Article $article)
@@ -88,5 +87,4 @@ public function update(Request $request, Article $article)
 
         return view('articles.show', compact('article'));
     }
-    
 }
