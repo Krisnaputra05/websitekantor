@@ -1,8 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container mx-auto py-8 mt-">
-    <h1 class="text-3xl font-bold text-center text-gray-800 mb-8">Artikel</h1>
+<div class="container mx-auto py-8 ">
+    <h1 class="text-3xl font-bold text-center text-gray-800">Artikel</h1>
 
     <!-- Swiper Container -->
     <div class="swiper mySwiper">

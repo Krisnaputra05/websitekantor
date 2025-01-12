@@ -12,7 +12,7 @@
             <div class="flex items-center space-x-4">
                 <div>
                     <p class="font-semibold">{{ $article->author }}</p>
-                    <p class="font-semibold text-gray-500 text-sm">{{ $article->created_at->format('M d, Y - H:i') }}</p>
+                    <p class="font-semibold text-gray-500 text-sm">{{ $article->created_at->diffForHumans() }}</p>
                 </div>
             </div>
             <div class="flex space-x-3">

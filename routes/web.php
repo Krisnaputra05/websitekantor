@@ -18,18 +18,16 @@ Route::post('/consultation', [ConsultationController::class, 'store'])->name('co
 Route::get('/contact', [ContactController::class, 'index'])->name('contact');
 Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
 
-Route::get('/articles/{id}', [ContactController::class, 'show'])->name('article.show');
+// Route::get('/articles/{id}', [ContactController::class, 'show'])->name('article.show');
 
 // Rute untuk halaman kontak
 Route::get('/contact', [ContactController::class, 'index'])->name('contact');
 
 // Rute untuk menampilkan artikel berdasarkan ID
-Route::get('/article/{id}', [ContactController::class, 'show'])->name('article.show');
+Route::get('/article/{id}', [ContactController::class, 'show'])->name('articles.show');
 
 // Rute untuk menyimpan artikel baru (biasanya untuk admin)
 Route::post('/admin/articles', [ContactController::class, 'store'])->name('admin.articles.store');
-
-
 
 // Admin Routes
 Route::prefix('admin')->name('admin.')->group(function () {
