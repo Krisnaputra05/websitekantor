@@ -63,18 +63,19 @@
 
 <div class="container mx-auto py-32">
     <div class="text-center">
-        <h1 class="text-9xl font-bold text-gray-800 mb-4">Layanan Kami</h1>
+        <h1 class="text-6xl font-extrabold text-[#6E0E0A] mb-8">Layanan 
+        <span class="text-[#A31621]">Kami</span></h1>
         <h2 class="text-5x1 font-semibold text-gray-600 mb-10">Berikut layanan hukum terbaik kami</h2>
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 py-11">
         <!-- Pengacara / Lawyer -->
-        <div class="text-center bg-white shadow-lg p-6 rounded-lg">
+        <div class="bg-[#F4EDEB] shadow-lg rounded-lg p-6 transition-transform transform hover:scale-105 border-t-4 border-[#A31621]">
             <div class="mb-4">
                 <img src="{{ asset('/icons/icon10.png') }}" alt="Lawyer Icon" class="w-68 mx-auto">
             </div>
-            <h3 class="text-xl font-semibold text-gray-800 text-justify">Pengacara / Lawyer</h3>
-            <p class="text-gray-600 mt-2 text-justify">Pengacara berpengalaman, kompeten, dan profesional, siap membantu Anda menyelesaikan masalah hukum Anda.</p>
+            <h3 class="text-2xl font-semibold text-[#6E0E0A] mb-4">Pengacara / Lawyer</h3>
+            <p class="text-[#8E6246] text-justify">Pengacara berpengalaman, kompeten, dan profesional, siap membantu Anda menyelesaikan masalah hukum Anda.</p>
         </div>
 
         <!-- Audit Hukum -->
@@ -124,7 +125,7 @@
                     <img src="{{ asset('/icons/keahlian-icon.png') }}" alt="Keahlian Icon" class="w-16 h-16">
                 </div>
                 <h2 class="text-2xl font-semibold text-[#6E0E0A] mb-4">Keahlian</h2>
-                <p class="text-[#8E6246] text-justify">
+                <p class="text-[#A31621] text-justify">
                     Berpengalaman lebih dari 25 tahun di berbagai bidang hukum seperti bisnis, perbankan, litigasi pidana, dan lainnya. Kami memastikan solusi terbaik untuk kebutuhan hukum Anda.
                 </p>
             </div>

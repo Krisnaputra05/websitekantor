@@ -57,13 +57,15 @@
                 <label class="block text-gray-700 text-sm font-bold mb-2" for="image">
                     Image
                 </label>
+                <img class="img-preview w-full max-w-sm mb-3 rounded">
                 <div class="mb-2">
                     @if ($article->image)
                     <img src="{{ asset('storage/' . $article->image) }}" alt="Current Image" class="h-32 mb-2">
                     @endif
                 </div>
                 <input type="file" name="image" id="image"
-                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    onchange="previewImage()">
                 @error('image')
                 <p class="text-red-500 text-xs italic">{{ $message }}</p>
                 @enderror

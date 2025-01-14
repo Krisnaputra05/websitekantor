@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Article;
-use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 
 class ArticleController extends Controller
 {
@@ -34,10 +34,12 @@ class ArticleController extends Controller
 
         $validated['slug'] = Str::slug($validated['title']);
 
+        // Simpan gambar jika ada
         if ($request->hasFile('image')) {
             $validated['image'] = $request->file('image')->store('articles', 'public');
         }
 
+        // Buat artikel
         Article::create($validated);
 
         return redirect()->route('admin.articles.index')
@@ -60,20 +62,33 @@ class ArticleController extends Controller
             'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
         ]);
 
+        // Update gambar jika ada
         if ($request->hasFile('image')) {
-            $validated['image'] = $request->file('image')->store('articles');
+            if ($article->image) {
+                // Hapus gambar lama
+                Storage::disk('public')->delete($article->image);
+            }
+            // Simpan gambar baru
+            $validated['image'] = $request->file('image')->store('articles', 'public');
         }
 
+        // Update artikel
         $article->update($validated);
 
         return redirect()->route('admin.articles.edit', $article->id)
             ->with('success', 'Article updated successfully!');
     }
 
-
     public function destroy(Article $article)
     {
+        // Hapus gambar jika ada
+        if ($article->image) {
+            Storage::disk('public')->delete($article->image);
+        }
+
+        // Hapus artikel
         $article->delete();
+
         return redirect()->route('admin.articles.index')
             ->with('success', 'Article deleted successfully');
     }

@@ -12,23 +12,25 @@
             <div class="flex items-center space-x-4">
                 <div>
                     <p class="font-semibold">{{ $article->author }}</p>
-                    <p class="font-semibold text-gray-500 text-sm">{{ $article->created_at->diffForHumans() }}</p>
+                    <!-- <p class="font-semibold text-gray-500 text-sm">{{ $article->created_at->diffForHumans() }}</p> -->
+                    <p class="font-semibold text-gray-500 text-sm">{{ $article->created_at->format('F d  Y , H:i') }} WIB</p>
                 </div>
             </div>
             <div class="flex space-x-3">
-                <a href="#">
+                <a href="https://facebook.com" target="_blank" rel="noopener noreferrer">
                     <img src="/icons/facebook.png" alt="Facebook" class="w-6 h-6">
                 </a>
-                <a href="#">
+                <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">
                     <img src="/icons/instagram.png" alt="Instagram" class="w-6 h-6">
                 </a>
-                <a href="#">
+                <a href="https://wa.me/1234567890" target="_blank" rel="noopener noreferrer">
                     <img src="/icons/whatsapp.png" alt="WhatsApp" class="w-6 h-6">
                 </a>
-                <a href="#">
+                <a href="mailto:your-email@example.com" target="_blank" rel="noopener noreferrer">
                     <img src="/icons/email.png" alt="Email" class="w-6 h-6">
                 </a>
             </div>
+
         </div>
 
         {{-- Gambar Artikel --}}
