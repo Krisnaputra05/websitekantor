@@ -54,36 +54,83 @@
         height: 500,
         menubar: false,
         content_style: "body { font-family:Arial,Helvetica,sans-serif; font-size:14px }",
-        setup: function(editor) {
-            editor.on('change', function() {
+        setup: function (editor) {
+            editor.on('change', function () {
                 editor.save(); // Ensure synchronization between TinyMCE and the form's textarea
             });
         }
     });
 
-    // Ensure TinyMCE data is saved before submitting the form
-    document.querySelector('form').addEventListener('submit', function() {
-        tinymce.triggerSave();
+    document.querySelector('form').addEventListener('submit', function (event) {
+        let hasError = false;
+        
+        // Validate Title
+        const title = document.getElementById('title');
+        if (!title.value.trim()) {
+            document.getElementById('error-title').classList.remove('hidden');
+            hasError = true;
+        } else {
+            document.getElementById('error-title').classList.add('hidden');
+        }
+
+        // Validate Slug
+        const slug = document.getElementById('slug');
+        if (!slug.value.trim()) {
+            document.getElementById('error-slug').classList.remove('hidden');
+            hasError = true;
+        } else {
+            document.getElementById('error-slug').classList.add('hidden');
+        }
+
+        // Validate Content
+        const content = document.getElementById('content');
+        if (!content.value.trim()) {
+            document.getElementById('error-content').classList.remove('hidden');
+            hasError = true;
+        } else {
+            document.getElementById('error-content').classList.add('hidden');
+        }
+
+        // Validate Image
+        const image = document.getElementById('image');
+        if (!image.files.length) {
+            document.getElementById('error-image').classList.remove('hidden');
+            hasError = true;
+        } else {
+            document.getElementById('error-image').classList.add('hidden');
+        }
+
+        // Validate Status
+        const status = document.getElementById('status');
+        if (!status.value) {
+            document.getElementById('error-status').classList.remove('hidden');
+            hasError = true;
+        } else {
+            document.getElementById('error-status').classList.add('hidden');
+        }
+
+        if (hasError) {
+            event.preventDefault();
+            alert('Please fill in all required fields.');
+        }
     });
 
-    function closePopup() {
-        const popup = document.getElementById('successPopup');
-        popup.style.display = 'none';
+    // Slug Generator
+    function generateSlug(text) {
+        return text
+            .toLowerCase()
+            .replace(/[^a-z0-9\s-]/g, '')
+            .replace(/\s+/g, '-')
+            .replace(/-+/g, '-');
     }
 
-    function previewImage() {
-        const image = document.querySelector('#image');
-        const imgPreview = document.querySelector('.img-preview');
+    const titleInput = document.getElementById('title');
+    const slugInput = document.getElementById('slug');
 
-        imgPreview.style.display = 'block';
-
-        const oFReader = new FileReader();
-        oFReader.readAsDataURL(image.files[0]);
-
-        oFReader.onload = function(oFREvent) {
-            imgPreview.src = oFREvent.target.result;
-        };
-    }
+    titleInput.addEventListener('input', function () {
+        const slug = generateSlug(this.value);
+        slugInput.value = slug;
+    });
 </script>
 
 </html>

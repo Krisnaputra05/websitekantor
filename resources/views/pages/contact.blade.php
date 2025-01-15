@@ -8,7 +8,7 @@
         <div class="swiper-wrapper">
             @foreach($articles as $article)
             <div class="swiper-slide">
-                <a href="{{ route('articles.show', $article->id) }}">
+                <a href="{{ route('articles.show', $article->slug) }}">
                     <div class="bg-[#f5ebe0] shadow-md rounded-lg overflow-hidden transition-transform  ">
                         <!-- Gambar Artikel -->
                         <img

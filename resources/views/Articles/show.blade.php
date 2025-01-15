@@ -12,8 +12,7 @@
             <div class="flex items-center space-x-4">
                 <div>
                     <p class="font-semibold">{{ $article->author }}</p>
-                    <!-- <p class="font-semibold text-gray-500 text-sm">{{ $article->created_at->diffForHumans() }}</p> -->
-                    <p class="font-semibold text-gray-500 text-sm">{{ $article->created_at->format('F d  Y , H:i') }} WIB</p>
+                    <p class="font-semibold text-gray-500 text-sm">{{ $article->created_at->format('F d, Y, H:i') }} WIB</p>
                 </div>
             </div>
             <div class="flex space-x-3">
@@ -30,13 +29,12 @@
                     <img src="/icons/email.png" alt="Email" class="w-6 h-6">
                 </a>
             </div>
-
         </div>
 
         {{-- Gambar Artikel --}}
         @if($article->image)
         <div class="mb-6">
-            <img src="{{ asset('storage/' . $article->image) }}" alt="{{ $article->title }}" class="max-w-md w-full h-auto object-cover rounded-lg shadow-md mx-auto">
+            <img src="{{ asset('storage/' . $article->image) }}" alt="{{ $article->title }}" class="max-w-md w-full h-auto object-cover rounded-lg  mx-auto">
         </div>
         @endif
 
@@ -44,9 +42,6 @@
         <div class="prose prose-lg max-w-none text-justify">
             {!! $article->content !!}
         </div>
-
-        <!-- {{-- Jumlah Views --}}
-            <p class="mt-6 text-gray-600">Views: {{ $article->views }}</p> -->
     </div>
 
     {{-- Sidebar --}}
@@ -57,7 +52,10 @@
             @foreach ($popularPosts as $post)
             <div class="post flex items-center gap-4 p-4 border border-gray-300 rounded-lg shadow-sm">
                 <img src="{{ asset('storage/' . $post->image) }}" alt="{{ $post->title }}" class="post-image w-16 h-16 object-cover rounded-lg">
-                <a href="{{ route('articles.show', $post->id) }}" class="text-lg font-semibold text-black hover:underline">{{ $post->title }}</a>
+                {{-- Gunakan slug di tautan --}}
+                <a href="{{ route('articles.show', $post->slug) }}" class="text-lg font-semibold text-black hover:underline">
+                    {{ $post->title }}
+                </a>
             </div>
             @endforeach
         </ul>

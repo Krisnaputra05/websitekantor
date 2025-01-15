@@ -27,6 +27,7 @@ class ArticleController extends Controller
     {
         $validated = $request->validate([
             'title' => 'required|max:255',
+            'slug' => 'required|unique:articles',
             'content' => 'required',
             'image' => 'nullable|image|max:2048',
             'status' => 'required|in:draft,published',
@@ -95,7 +96,7 @@ class ArticleController extends Controller
 
     public function show($slug)
     {
-        $article = Article::where('slug', $slug)->firstOrFail();
+        $article = Article::where('slug', $slug)->firstOrFail(); // Cari artikel berdasarkan slug.
 
         // Tambahkan logika untuk meningkatkan views
         $article->increment('views'); // Menambah jumlah view +1

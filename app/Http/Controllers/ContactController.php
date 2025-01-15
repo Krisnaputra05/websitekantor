@@ -14,10 +14,6 @@ class ContactController extends Controller
     {
         // Data kontak dummy
         $contact = [
-            'name' => 'John Doe',
-            'email' => 'johndoe@example.com',
-            'message' => 'Hello, this is a hardcoded message.',
-            'created_at' => now(),
         ];
 
         // Query artikel dengan status "published"
@@ -65,10 +61,9 @@ class ContactController extends Controller
     /**
      * Menampilkan artikel berdasarkan ID.
      */
-    public function show($id)
+    public function show($slug)
     {
-        // Ambil artikel berdasarkan ID yang berstatus published
-        $article = Article::published()->findOrFail($id);
+        $article = Article::where('slug', $slug)->firstOrFail();
 
         // Ambil artikel populer berdasarkan views
         $popularPosts = Article::published() // Tambahkan filter published

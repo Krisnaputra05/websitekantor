@@ -54,4 +54,5 @@ class Article extends Model
     {
         return $query->where('status', 'draft');
     }
+    
 }

@@ -7,7 +7,7 @@
 @section('content')
 <div class="bg-white shadow rounded-lg">
     <div class="p-6">
-        <form action="{{ route('admin.articles.store') }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('admin.articles.store') }}" method="POST" enctype="multipart/form-data" id="articleForm">
             @csrf
             <div class="mb-4">
                 <label class="block text-gray-700 text-sm font-bold mb-2" for="title">
@@ -16,7 +16,21 @@
                 <input type="text" name="title" id="title"
                     class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                     value="{{ old('title') }}" required>
+                <p id="error-title" class="text-red-500 text-xs italic hidden">Title is required.</p>
                 @error('title')
+                <p class="text-red-500 text-xs italic">{{ $message }}</p>
+                @enderror
+            </div>
+
+            <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="slug">
+                    Slug
+                </label>
+                <input type="text" name="slug" id="slug"
+                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    value="{{ old('slug') }}" required>
+                <p id="error-slug" class="text-red-500 text-xs italic hidden">Slug is required.</p>
+                @error('slug')
                 <p class="text-red-500 text-xs italic">{{ $message }}</p>
                 @enderror
             </div>
@@ -28,6 +42,7 @@
                 <textarea name="content" id="content" rows="10"
                     class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                     required>{{ old('content') }}</textarea>
+                <p id="error-content" class="text-red-500 text-xs italic hidden">Content is required.</p>
                 @error('content')
                 <p class="text-red-500 text-xs italic">{{ $message }}</p>
                 @enderror
@@ -40,7 +55,8 @@
                 <img class="img-preview w-full max-w-sm mb-3 rounded">
                 <input type="file" name="image" id="image"
                     class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                onchange="previewImage()">
+                    onchange="previewImage()">
+                <p id="error-image" class="text-red-500 text-xs italic hidden">Image is required.</p>
                 @error('image')
                 <p class="text-red-500 text-xs italic">{{ $message }}</p>
                 @enderror
@@ -55,13 +71,14 @@
                     <option value="draft" {{ old('status') == 'draft' ? 'selected' : '' }}>Draft</option>
                     <option value="published" {{ old('status') == 'published' ? 'selected' : '' }}>Published</option>
                 </select>
+                <p id="error-status" class="text-red-500 text-xs italic hidden">Status is required.</p>
                 @error('status')
                 <p class="text-red-500 text-xs italic">{{ $message }}</p>
                 @enderror
             </div>
 
             <div class="flex items-center justify-end">
-                <button type="submit"
+                <button type="submit" id="submitButton"
                     class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
                     Create Article
                 </button>
@@ -89,9 +106,75 @@
         }
     });
 
-    // Ensure TinyMCE data is saved before submitting the form
-    document.querySelector('form').addEventListener('submit', function () {
-        tinymce.triggerSave();
+    document.querySelector('form').addEventListener('submit', function (event) {
+        let hasError = false;
+        
+        // Validate Title
+        const title = document.getElementById('title');
+        if (!title.value.trim()) {
+            document.getElementById('error-title').classList.remove('hidden');
+            hasError = true;
+        } else {
+            document.getElementById('error-title').classList.add('hidden');
+        }
+
+        // Validate Slug
+        const slug = document.getElementById('slug');
+        if (!slug.value.trim()) {
+            document.getElementById('error-slug').classList.remove('hidden');
+            hasError = true;
+        } else {
+            document.getElementById('error-slug').classList.add('hidden');
+        }
+
+        // Validate Content
+        const content = document.getElementById('content');
+        if (!content.value.trim()) {
+            document.getElementById('error-content').classList.remove('hidden');
+            hasError = true;
+        } else {
+            document.getElementById('error-content').classList.add('hidden');
+        }
+
+        // Validate Image
+        const image = document.getElementById('image');
+        if (!image.files.length) {
+            document.getElementById('error-image').classList.remove('hidden');
+            hasError = true;
+        } else {
+            document.getElementById('error-image').classList.add('hidden');
+        }
+
+        // Validate Status
+        const status = document.getElementById('status');
+        if (!status.value) {
+            document.getElementById('error-status').classList.remove('hidden');
+            hasError = true;
+        } else {
+            document.getElementById('error-status').classList.add('hidden');
+        }
+
+        if (hasError) {
+            event.preventDefault();
+            alert('Please fill in all required fields.');
+        }
+    });
+
+    // Slug Generator
+    function generateSlug(text) {
+        return text
+            .toLowerCase()
+            .replace(/[^a-z0-9\s-]/g, '')
+            .replace(/\s+/g, '-')
+            .replace(/-+/g, '-');
+    }
+
+    const titleInput = document.getElementById('title');
+    const slugInput = document.getElementById('slug');
+
+    titleInput.addEventListener('input', function () {
+        const slug = generateSlug(this.value);
+        slugInput.value = slug;
     });
 </script>
 @endsection
