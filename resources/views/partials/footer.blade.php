@@ -1,12 +1,12 @@
 <footer class="bg-[#A31621] border-t border-[#870E18] shadow-sm font-poppins">
     <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-6">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
             <!-- Kolom 1: Tentang Kami -->
             <div>
                 <h2 class="text-lg font-semibold text-white">Tentang Kami</h2>
-                <img src="/image/logo.png" alt="Logo Sari Law Office" class="h-12 mb-4">
+                <img src="/image/logo.png" alt="Logo Sari Law Office" class="h-12 mx-auto md:mx-0 mb-4">
                 <p class="text-sm text-white leading-relaxed text-justify">
-                    Kantor Hukum Sari Law Office berdiri sejak tahun 1993 yang telah berpengalaman dalam hal menangani kasus-kasus hukum secara profesional demi kepentingan klien dan keadilan.
+                    Kantor Hukum Sari Law Office berdiri sejak tahun 1993 yang telah berpengalaman dalam menangani kasus-kasus hukum secara profesional demi kepentingan klien dan keadilan.
                 </p>
                 <p class="mt-3 text-sm text-white text-justify">
                     Kami adalah platform konsultasi hukum yang memberikan layanan terbaik untuk kebutuhan Anda.
@@ -15,7 +15,7 @@
             </div>
 
             <!-- Kolom 2: Navigasi -->
-            <div class="px-16">
+            <div>
                 <h2 class="text-lg font-semibold text-white">Navigasi</h2>
                 <ul class="mt-3 space-y-2">
                     <li><a href="{{ route('home') }}" class="text-sm text-white hover:text-[#A31621] hover:bg-white rounded-md py-1 px-2">Beranda</a></li>
@@ -25,7 +25,7 @@
                 </ul>
             </div>
 
-            <!-- Kolom 3: Hubungi Kami -->
+            <!-- Kolom 3: Hubungi Kami & Media Sosial -->
             <div>
                 <h2 class="text-lg font-semibold text-white">Hubungi Kami</h2>
                 <ul class="mt-3 space-y-2 text-sm text-white">
@@ -33,6 +33,25 @@
                     <li><span class="font-medium">Email:</span> <a href="mailto:info@example.com" class="hover:text-[#870E18]">info@example.com</a></li>
                     <li><span class="font-medium">Telepon:</span> <a href="tel:+628123456789" class="hover:text-[#870E18]">+62 812 3456 789</a></li>
                 </ul>
+
+                <!-- Media Sosial -->
+                <div class="mt-4">
+                    <h2 class="text-lg font-semibold text-white">Kontak Cepat</h2>
+                    <div class="flex justify-center md:justify-start space-x-4 mt-2">
+                        <a href="https://facebook.com" target="_blank" class="text-white hover:text-gray-300 transition">
+                            <i class="fab fa-facebook-f text-2xl"></i>
+                        </a>
+                        <a href="mailto:info@example.com" class="text-white hover:text-gray-300 transition">
+                            <i class="fas fa-envelope text-2xl"></i>
+                        </a>
+                        <a href="https://wa.me/628123456789?text=Halo,%20saya%20ingin%20konsultasi" target="_blank" class="text-white hover:text-gray-300 transition">
+                            <i class="fab fa-whatsapp text-2xl"></i>
+                        </a>
+                        <a href="https://linkedin.com" target="_blank" class="text-white hover:text-gray-300 transition">
+                            <i class="fab fa-linkedin-in text-2xl"></i>
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -42,3 +61,6 @@
         </div>
     </div>
 </footer>
+
+<!-- Tambahkan FontAwesome untuk Ikon Media Sosial -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js"></script>

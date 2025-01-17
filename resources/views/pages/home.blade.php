@@ -3,125 +3,172 @@
 @section('title', 'Beranda')
 
 @section('content')
-<div class="bg-white py-24">
+<div class="bg-white py-12 lg:py-24">
     <div class="container mx-auto px-6 lg:px-8 flex flex-col lg:flex-row items-center">
         <!-- Text Section -->
         <div class="lg:w-1/2">
-            <h1 class="text-4xl lg:text-5xl font-bold text-burgundy leading-tight">
+            <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-burgundy leading-snug lg:leading-tight text-center lg:text-left">
                 Selamat Datang di <span class="text-maroon">Kantor Hukum</span>
             </h1>
-            <p class="mt-6 text-lg text-[#593C39] text-justify">
+            <p class="mt-6 text-base md:text-lg lg:text-xl text-[#593C39] text-justify lg:text-left">
                 Kantor hukum terkemuka di Denpasar, Bali, Indonesia! Berdiri sejak 1993, kami menyediakan layanan jasa hukum terbaik di seluruh Indonesia.
                 Sebagai Pengacara, Auditor Hukum, Konsultan Hukum yang berpengalaman dalam bidang hukum perdata khususnya hukum bisnis & perbankan.
             </p>
-            <a href="https://wa.me/6281234567890"
-                class="mt-6 inline-block bg-burgundy text-white font-semibold py-3 px-6 rounded-lg shadow-md hover:bg-maroon transition duration-300">
-                Selesaikan Masalahmu, Konsultasikan Sekarang!
-            </a>
+            <div class="flex justify-center lg:justify-start">
+                <button onclick="window.location.href='https://wa.me/6281234567890'"
+                    class="mt-6 inline-flex items-center justify-center bg-[#6E0E0A] text-white font-semibold py-3 px-6 rounded-lg shadow-md hover:bg-[#A31621] transition duration-300">
+                    Selesaikan Masalahmu, Konsultasikan Sekarang!
+                </button>
+            </div>
         </div>
+
+
         <!-- Image Section -->
-        <div x-data="slider()" x-init="start()" class="relative lg:w-1/2 mt-10 lg:mt-0 lg:pl-36">
-            <!-- Wrapper Slider -->
-            <div class="overflow-hidden rounded-lg shadow-md border-4 border-gray-200">
-                <div class="flex transition-transform duration-700 ease-in-out"
-                    :style="`transform: translateX(-${currentIndex * 100}%);`">
-                    <img src="{{ asset('/image/new3.jpg') }}" alt="Slide 1" class="w-full">
-                    <img src="{{ asset('/image/new2.jpg') }}" alt="Slide 2" class="w-full">
-                    <img src="{{ asset('/image/new4.jpg') }}" alt="Slide 3" class="w-full">
+        <div class="relative lg:w-1/2 w-full  mt-10 lg:mt-0 lg:pl-16">
+            <!-- Swiper -->
+            <div class="swiper">
+                <!-- Wrapper Slider -->
+                <div class="swiper-wrapper">
+                    <!-- Slide 1 -->
+                    <div class="swiper-slide">
+                        <img src="{{ asset('/image/new3.jpg') }}" alt="Slide 1" class="w-full h-auto object-cover rounded-lg shadow-md">
+                    </div>
+                    <!-- Slide 2 -->
+                    <div class="swiper-slide">
+                        <img src="{{ asset('/image/new2.jpg') }}" alt="Slide 2" class="w-full h-auto object-cover rounded-lg shadow-md">
+                    </div>
+                    <!-- Slide 3 -->
+                    <div class="swiper-slide">
+                        <img src="{{ asset('/image/new4.jpg') }}" alt="Slide 3" class="w-full h-auto object-cover rounded-lg shadow-md">
+                    </div>
+                </div>
+
+                <!-- Pagination Dots -->
+                <div class="swiper-pagination"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="bg-white py-12 my-16">
+    <div class="container mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 px-4">
+        <!-- Kolom Kiri: Gambar -->
+        <div class="flex flex-col lg:flex-row items-center lg:items-start gap-4">
+            <!-- Gambar utama -->
+            <div class="w-full lg:w-2/3 mt-4 lg:mt-14 lg:ml-6">
+                <img src="{{ asset('/image/lawyer.jpg') }}" alt="Foto 1"
+                    class="w-full h-auto object-cover rounded-lg shadow-lg">
+            </div>
+
+            <!-- Dua gambar kecil -->
+            <div class="w-full lg:w-1/3 flex flex-col-2 lg:flex-col md:flex-row gap-4">
+                <div class="w-1/2 lg:w-full">
+                    <img src="{{ asset('/image/new2.jpg') }}" alt="Foto 2"
+                        class="w-full h-auto object-cover rounded-lg shadow-md">
+                </div>
+                <div class="w-1/2 lg:w-full">
+                    <img src="{{ asset('/image/new3.jpg') }}" alt="Foto 3"
+                        class="w-full h-auto object-cover rounded-lg shadow-md">
                 </div>
             </div>
-
-            <!-- Navigation Dots -->
-            <div class="flex justify-center mt-4 space-x-2">
-                <template x-for="(image, index) in images" :key="index">
-                    <button @click="goToSlide(index)"
-                        :class="{'bg-gray-700': index === currentIndex, 'bg-gray-300': index !== currentIndex}"
-                        class="w-3 h-3 rounded-full"></button>
-                </template>
+        </div>
+        <!-- Kolom Kanan: Tentang Kami -->
+        <div class="flex flex-col justify-center text-center md:text-center lg:text-left px-6">
+            <h1 class="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-black mb-6">
+                Tentang Kami
+            </h1>
+            <p class="text-sm sm:text-md md:text-lg text-gray-700 leading-relaxed mb-6 text-justify">
+                Berdiri sejak 1993, akan terus tumbuh dan berkembang menjadi firma hukum yang tetap bekerja
+                secara profesional dengan tenaga ahli yang berkompeten dan berpengalaman demi kepentingan
+                klien dan nilai-nilai keadilan.
+            </p>
+            <div class="flex justify-center lg:justify-start">
+                <a href="{{ url('/contact') }}"
+                    class="inline-block bg-burgundy text-white font-semibold py-3 px-6 rounded-lg shadow-md 
+                    hover:bg-maroon transition duration-300">
+                    Klik Disini Untuk Berkenalan Dengan Kami
+                </a>
             </div>
         </div>
+
     </div>
 </div>
 
-<!-- Floating WhatsApp Button -->
-<a href="https://wa.me/6281234567890"
-    class="fixed bottom-6 right-6 bg-[#25D366] text-white w-14 h-14 flex items-center justify-center rounded-full shadow-lg hover:bg-[#1B8F4D] transition duration-300">
-    <img src="{{ asset('/icons/icons8-whatsapp-128.png') }}" alt="WhatsApp"
-        class="w-8 h-8"> <!-- Gambar lebih kecil -->
-</a>
-<div class="bg-white py-24"></div>
-<div class="container mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 px-4 py-12">
-    <!-- Kolom Kiri: Gambar -->
-    <div class="grid grid-cols-2 gap-4">
-        <img src="{{ asset('/image/lawyer.jpg') }}" alt="Foto 1" class="w-full h-auto object-cover rounded-lg  py-8">
-        <img src="{{ asset('/image/new2.jpg') }}" alt="Foto 2" class="w-full h-auto object-cover rounded-lg shadow-md">
-        <img src="{{ asset('/image/new3.jpg') }}" alt="Foto 3" class="w-full h-auto object-cover rounded-lg shadow-md">
-        <img src="{{ asset('/image/new4.jpg') }}" alt="Foto 4" class="w-full h-auto object-cover rounded-lg shadow-md">
-    </div>
-
-    <!-- Kolom Kanan: Tentang Kami -->
-    <div class="flex flex-col justify-center">
-        <h1 class="text-8xl font-bold text-black mb-6">Tentang Kami</h1>
-        <p class="text-lg text-gray-700 leading-relaxed mb-6 text-justify">
-            Berdiri sejak 1993, akan terus tumbuh dan berkembang menjadi firma hukum yang tetap bekerja secara profesional dengan tenaga ahli yang berkompeten dan berpengalaman demi kepentingan klien dan nilai-nilai keadilan.
-        </p>
-        <div class="flex justify-start">
-            <a href="{{ url('/contact') }}"
-                class="inline-block bg-burgundy text-white font-semibold py-3 px-6 rounded-lg shadow-md hover:text-maroon transition duration-300"
-                style="max-width: fit-content;">
-                Klik Disini Untuk Berkenalan Dengan Kami
-            </a>
-        </div>
-    </div>
-</div>
-</div>
-
-<div class="container mx-auto py-32">
-    <div class="text-center">
-        <h1 class="text-6xl font-extrabold text-[#6E0E0A] mb-8">Layanan
-            <span class="text-[#A31621]">Kami</span>
+<div class="container mx-auto px-4 py-16">
+    <!-- Header Section -->
+    <div class="text-center mb-8">
+        <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-[#6E0E0A] mb-6">
+            Layanan <span class="text-[#A31621]">Kami</span>
         </h1>
-        <h2 class="text-5x1 font-semibold text-gray-600 mb-10">Berikut layanan hukum terbaik kami</h2>
+        <h2 class="text-sm sm:text-base md:text-lg font-semibold text-gray-600 mb-8">
+            Berikut layanan hukum terbaik kami
+        </h2>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 py-11">
-        <!-- Pengacara / Lawyer -->
-        <div class="bg-[#F4EDEB] shadow-lg rounded-lg p-6 transition-transform transform hover:scale-105 border-t-4 border-[#A31621]">
-            <div class="mb-4">
-                <img src="{{ asset('/icons/icon10.png') }}" alt="Lawyer Icon" class="w-68 mx-auto">
-            </div>
-            <h3 class="text-2xl font-semibold text-[#6E0E0A] mb-4">Pengacara / Lawyer</h3>
-            <p class="text-[#8E6246] text-justify">Pengacara berpengalaman, kompeten, dan profesional, siap membantu Anda menyelesaikan masalah hukum Anda.</p>
+    <!-- Cards Section -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-6 py-8">
+        <!-- Card 1 -->
+        <div
+            class="bg-[#F4EDEB] border-t-4 border-[#A31621] shadow-lg rounded-lg p-4 sm:p-6 transition-transform transform hover:scale-105 text-center">
+            <img
+                src="{{ asset('/icons/icon10.png') }}"
+                alt="Lawyer Icon"
+                class="w-32 sm:w-40 md:w-52 mx-auto mb-4" />
+            <h3 class="text-lg sm:text-xl md:text-2xl font-semibold text-[#6E0E0A] mb-2">
+                Pengacara / Lawyer
+            </h3>
+            <p class="text-xs sm:text-sm md:text-base text-[#8E6246] text-justify">
+                Pengacara berpengalaman, kompeten, dan profesional, siap membantu Anda menyelesaikan masalah hukum Anda.
+            </p>
         </div>
 
-        <!-- Audit Hukum -->
-        <div class="text-center bg-white shadow-lg p-6 rounded-lg">
-            <div class="mb-4">
-                <img src="{{ asset('/icons/icon6.png') }}" alt="Audit Icon" class="w-68  mx-auto">
-            </div>
-            <h3 class="text-xl font-semibold text-gray-800 text-justify">Audit Hukum</h3>
-            <p class="text-gray-600 mt-2 text-justify">Cegah risiko hukum, tingkatkan kepatuhan akan dokumen hukum pada perusahaan Anda.</p>
+        <!-- Card 2 -->
+        <div class="bg-[#F4EDEB] border-t-4 border-[#A31621] shadow-lg rounded-lg p-4 sm:p-6 transition-transform transform hover:scale-105 text-center">
+            <img
+                src="{{ asset('/icons/icon6.png') }}"
+                alt="Audit Icon"
+                class="w-32 sm:w-40 md:w-52 mx-auto mb-4" />
+            <h3 class="text-lg sm:text-xl md:text-2xl font-semibold text-gray-800">
+                Audit Hukum
+            </h3>
+            <p class="text-xs sm:text-sm md:text-base text-gray-600 mt-2">
+                Cegah risiko hukum, tingkatkan kepatuhan akan dokumen hukum pada perusahaan Anda.
+            </p>
         </div>
 
-        <!-- Konsultan Hukum Bank -->
-        <div class="text-center bg-white shadow-lg p-6 rounded-lg">
-            <div class="mb-4">
-                <img src="{{ asset('/icons/icon8.png') }}" alt="Bank Consultant Icon" class="w-68  mx-auto">
-            </div>
-            <h3 class="text-xl font-semibold text-gray-800 text-justify">Konsultan Hukum Bank</h3>
-            <p class="text-gray-600 mt-2 text-justify">Pengacara bank top Indonesia yang telah tersertifikasi dari BNSP. Cepat & tangguh!</p>
+        <!-- Card 3 -->
+        <div class="bg-[#F4EDEB] border-t-4 border-[#A31621] shadow-lg rounded-lg p-4 sm:p-6 transition-transform transform hover:scale-105 text-center">
+            <img
+                src="{{ asset('/icons/icon8.png') }}"
+                alt="Bank Consultant Icon"
+                class="w-32 sm:w-40 md:w-52 mx-auto mb-4" />
+            <h3 class="text-lg sm:text-xl md:text-2xl font-semibold text-gray-800">
+                Konsultan Hukum Bank
+            </h3>
+            <p class="text-xs sm:text-sm md:text-base text-gray-600 mt-2">
+                Pengacara bank top Indonesia yang telah tersertifikasi dari BNSP. Cepat & tangguh!
+            </p>
         </div>
 
-        <!-- Narasumber Ahli Hukum -->
-        <div class="text-center bg-white shadow-lg p-6 rounded-lg">
-            <div class="mb-4">
-                <img src="{{ asset('/icons/icon9.png') }}" alt="Expert Icon" class="w-68 mx-auto">
-            </div>
-            <h3 class="text-xl font-semibold text-gray-800 text-justify">Narasumber Ahli Hukum</h3>
-            <p class="text-gray-600 mt-2 text-justify">Kami membantu Anda memahami kompleksitas hukum dengan bahasa yang mudah dimengerti.</p>
+        <!-- Card 4 -->
+        <div class="bg-[#F4EDEB] border-t-4 border-[#A31621] shadow-lg rounded-lg p-4 sm:p-6 transition-transform transform hover:scale-105 text-center">
+            <img
+                src="{{ asset('/icons/icon9.png') }}"
+                alt="Expert Icon"
+                class="w-32 sm:w-40 md:w-52 mx-auto mb-4" />
+            <h3 class="text-lg sm:text-xl md:text-2xl font-semibold text-gray-800">
+                Narasumber Ahli Hukum
+            </h3>
+            <p class="text-xs sm:text-sm md:text-base text-gray-600 mt-2">
+                Kami membantu Anda memahami kompleksitas hukum dengan bahasa yang mudah dimengerti.
+            </p>
         </div>
     </div>
 </div>
+
+
+
 
 <div class="bg-[#FFFFFF] py-24 mb-14">
     <div class="max-w-7xl mx-auto px-6 lg:px-8 text-center">
@@ -134,7 +181,7 @@
         </p>
 
         <!-- Card Grid -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12">
             <!-- Keahlian -->
             <div class="bg-[#F4EDEB] shadow-lg rounded-lg p-6 transition-transform transform hover:scale-105 border-t-4 border-[#6E0E0A]">
                 <div class="flex items-center justify-center mb-6">

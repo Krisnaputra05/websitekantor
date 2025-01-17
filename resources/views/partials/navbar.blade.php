@@ -1,8 +1,15 @@
-<nav class="bg-[#A31621] border-b border-[#B08C7A] shadow-sm font-poppins">
+<nav class="bg-[#A31621] border-b border-[#B08C7A] shadow-sm font-poppins fixed top-0 w-full z-50">
     <div class="container mx-auto px-4 sm:px-6 lg:px-8">
         <div class="relative flex h-16 items-center justify-between">
-            <!-- Mobile Menu Button -->
+            <!-- Logo -->
             <div class="absolute inset-y-0 left-0 flex items-center lg:hidden">
+                <a href="/">
+                    <img src="/image/logo.png" alt="Logo" class="h-9 w-auto">
+                </a>
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <div class="absolute inset-y-0 right-0 flex items-center lg:hidden">
                 <button id="menu-toggle" type="button" class="inline-flex items-center justify-center rounded-md p-2 text-white hover:bg-[#870E18] hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
                     <span class="sr-only">Open main menu</span>
                     <!-- Icon when menu is closed -->
@@ -16,9 +23,9 @@
                 </button>
             </div>
 
-            <!-- Logo and Navigation -->
+            <!-- Logo and Navigation for Desktop -->
             <div class="flex flex-1 items-center justify-center lg:items-stretch lg:justify-start">
-                <div class="flex items-center">
+                <div class="hidden lg:flex items-center">
                     <img class="h-9 w-auto" src="/image/logo.png" alt="Logo">
                     <span class="ml-2 text-lg font-semibold text-white"></span>
                 </div>
@@ -33,10 +40,10 @@
             </div>
 
             <!-- Call-to-Action Button -->
-            <div class="absolute inset-y-0 right-0 flex items-center pr-2 lg:static lg:inset-auto lg:ml-6 lg:pr-0">
+            <div class="absolute inset-y-0 right-0  items-center pr-2 lg:static lg:inset-auto lg:ml-6 lg:pr-0 hidden lg:flex">
                 <a href="https://wa.me/6281234567890?text=Halo,%20saya%20ingin%20konsultasi%20dengan%20Sari%20Law%20Office."
                     target="_blank"
-                    class="hidden lg:flex items-center px-4 py-2 border border-[#B08C7A] rounded-md text-sm font-medium text-white hover:bg-[#870E18] hover:text-white">
+                    class="flex items-center px-4 py-2 border border-[#B08C7A] rounded-md text-sm font-medium text-white hover:bg-[#870E18] hover:text-white">
                     <svg class="h-5 w-5 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h4l3 10h4l3-10h4" />
                     </svg>
@@ -56,3 +63,6 @@
         </div>
     </div>
 </nav>
+
+<!-- Tambahkan Padding untuk Konten agar tidak tertutup oleh Navbar -->
+<div class="pt-20"></div>
