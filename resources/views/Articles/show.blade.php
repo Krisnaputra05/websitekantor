@@ -14,6 +14,9 @@
             <div class="flex items-center space-x-4">
                 <div>
                     <p class="font-semibold text-gray-700">{{ $article->author }}</p>
+                    <p class="font-semibold text-gray-700">
+                        <a href="{{ route('category.show', $article->category->slug) }}">{{ $article->category->name }}</a>
+                    </p>
                     <p class="font-medium text-gray-500 text-sm">
                         {{ $article->created_at->format('F d, Y, H:i') }} WIB
                     </p>
@@ -55,16 +58,21 @@
         {{-- Artikel Populer --}}
         <h2 class="text-2xl font-bold mb-4 text-gray-800">Popular Posts</h2>
         <ul class="space-y-4">
+            @if ($popularPosts->isNotEmpty())
             @foreach ($popularPosts as $post)
-            <div class="post flex items-center gap-4 p-4 border border-gray-200 rounded-lg shadow-sm hover:shadow-md transition-shadow">
-                <img src="{{ asset('storage/' . $post->image) }}"
-                    alt="{{ $post->title }}"
-                    class="post-image w-16 h-16 object-cover rounded-lg">
-                <a href="{{ route('articles.show', $post->slug) }}" class="text-lg font-semibold text-gray-800 hover:text-gray-600 hover:underline">
-                    {{ $post->title }}
-                </a>
-            </div>
+            <li class="flex items-start gap-4">
+                <img src="{{ asset('storage/' . $post->image) }}" alt="{{ $post->title }}" class="w-16 h-16 object-cover rounded-lg">
+                <div>
+                    <a href="{{ route('articles.show', $post->slug) }}" class="text-lg font-semibold text-gray-800 hover:text-blue-500 hover:underline">
+                        {{ $post->title }}
+                    </a>
+                    <p class="text-sm text-gray-500">{{ $post->created_at->format('F d, Y') }}</p>
+                </div>
+            </li>
             @endforeach
+            @else
+            <p class="text-gray-500">Belum ada artikel populer.</p>
+            @endif
         </ul>
     </div>
 </div>

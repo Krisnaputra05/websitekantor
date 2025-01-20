@@ -63,7 +63,7 @@
             });
         });
     </script>
-
+<script src="{{ asset('/js/swiper.js') }}" defer></script>
 </body>
 
 </html>

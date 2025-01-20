@@ -16,7 +16,7 @@ export default {
                 "fade-in-up": "fade-in-up 0.8s ease-out",
                 "zoom-in": "zoom-in 0.8s ease-out",
                 "slide-in-bottom": "slide-in-bottom 0.8s ease-out",
-                'slide-down': 'slideDown 1s ease-out forwards',
+                "slide-down": "slideDown 1s ease-out forwards",
             },
             keyframes: {
                 "fade-in-down": {
@@ -36,11 +36,11 @@ export default {
                     "100%": { opacity: "1", transform: "translateY(0)" },
                 },
                 slideDown: {
-                    '0%': { opacity: '0', transform: 'translateY(-20px)' },
-                    '100%': { opacity: '1', transform: 'translateY(0)' },
+                    "0%": { opacity: "0", transform: "translateY(-20px)" },
+                    "100%": { opacity: "1", transform: "translateY(0)" },
                 },
             },
-            
+
             colors: {
                 burgundy: "#800020",
                 maroon: "#4B1E24",
@@ -67,5 +67,12 @@ export default {
             },
         },
     },
-    plugins: [],
+    plugins: [require('@tailwindcss/line-clamp')],
+    safelist: [
+        "bg-blue-500",
+        "bg-red-500",
+        "bg-green-500",
+        "bg-yellow-500",
+        // Tambahkan kelas lainnya yang diperlukan
+    ],
 };

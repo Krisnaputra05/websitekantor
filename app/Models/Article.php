@@ -54,5 +54,10 @@ class Article extends Model
     {
         return $query->where('status', 'draft');
     }
+
+    public function category() {
+        return $this->belongsTo(Category::class);
+    }
+    
     
 }

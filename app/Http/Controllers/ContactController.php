@@ -3,29 +3,43 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Article; // Import model Article
+use App\Models\Article;
+use App\Models\Category;
 
 class ContactController extends Controller
 {
     /**
-     * Menampilkan halaman kontak dengan daftar artikel yang dipublikasikan.
+     * Menampilkan halaman kontak dengan daftar artikel yang dipublikasikan dan fitur pencarian.
      */
-    public function index()
+    public function index(Request $request)
     {
-        // Data kontak dummy
-        $contact = [
-        ];
+        // Ambil semua kategori
+        $categories = Category::all();
 
-        // Query artikel dengan status "published"
-        $articles = Article::published()->latest()->paginate(10);
-        return view('pages.contact', compact('contact', 'articles'));
+        // Ambil query pencarian dari request
+        $search = $request->input('search');
+        $categorySlug = $request->input('category');
 
-        $popularPosts = Article::published() // Gunakan scope published
+        // Query artikel yang dipublikasikan
+        $articles = Article::published()
+            ->when($search, function ($query, $search) {
+                return $query->where('title', 'like', "%{$search}%");
+            })
+            ->when($categorySlug, function ($query, $categorySlug) {
+                return $query->whereHas('category', function ($query) use ($categorySlug) {
+                    $query->where('slug', $categorySlug);
+                });
+            })
+            ->latest()
+            ->paginate(10);
+
+        // Ambil 5 artikel terpopuler berdasarkan views
+        $popularPosts = Article::published()
             ->orderBy('views', 'desc')
-            ->take(5) // Misalnya, ambil 5 artikel terpopuler
+            ->take(10)
             ->get();
 
-        return view('home', compact('popularPosts'));
+        return view('pages.contact', compact('categories', 'articles', 'popularPosts'));
     }
 
     /**
@@ -36,16 +50,16 @@ class ContactController extends Controller
         // Validasi input
         $validated = $request->validate([
             'title' => 'required|string|max:255',
-            'content' => 'required|string', // Validasi konten artikel
-            'image' => 'nullable|image|max:2048', // Validasi gambar
-            'status' => 'required|in:draft,published', // Status wajib: draft/published
+            'content' => 'required|string',
+            'image' => 'nullable|image|max:2048',
+            'status' => 'required|in:draft,published',
+            'category_id' => 'required|exists:categories,id',
         ]);
 
         // Upload gambar jika ada
-        $imagePath = null;
-        if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('articles', 'public'); // Simpan di storage
-        }
+        $imagePath = $request->hasFile('image')
+            ? $request->file('image')->store('articles', 'public')
+            : null;
 
         // Buat artikel baru
         Article::create([
@@ -53,27 +67,36 @@ class ContactController extends Controller
             'content' => $validated['content'],
             'image' => $imagePath,
             'status' => $validated['status'],
+            'category_id' => $validated['category_id'],
         ]);
 
         return redirect()->route('admin.articles.index')->with('success', 'Article created successfully!');
     }
 
     /**
-     * Menampilkan artikel berdasarkan ID.
+     * Menampilkan artikel berdasarkan slug.
      */
-    public function show($slug)
+    public function search(Request $request)
     {
-        $article = Article::where('slug', $slug)->firstOrFail();
+        $query = Article::query();
 
-        // Ambil artikel populer berdasarkan views
-        $popularPosts = Article::published() // Tambahkan filter published
-            ->orderBy('views', 'desc')
-            ->limit(5)
-            ->get();
+        // Filter berdasarkan kategori jika dipilih
+        if ($request->has('category') && $request->category) {
+            $category = Category::where('slug', $request->category)->firstOrFail();
+            $query->where('category_id', $category->id);
+        }
 
-        // Tambahkan jumlah views pada artikel yang ditampilkan
-        $article->increment('views');
+        // Filter berdasarkan pencarian judul artikel
+        if ($request->has('search') && $request->search) {
+            $query->where('title', 'like', '%' . $request->search . '%');
+        }
 
-        return view('articles.show', compact('article', 'popularPosts'));
+        // Dapatkan hasil artikel
+        $articles = $query->latest()->paginate(10);
+
+        // Ambil kategori untuk dropdown
+        $categories = Category::all();
+
+        return view('articles.index', compact('article', 'categories'));
     }
 }

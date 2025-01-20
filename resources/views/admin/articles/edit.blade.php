@@ -7,28 +7,11 @@
 @section('content')
 <div class="bg-white shadow rounded-lg">
     <div class="p-6">
-        @if(session('success'))
-        <div id="successPopup" class="fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center z-50">
-            <div class="bg-white rounded-lg shadow-lg p-6 max-w-sm text-center">
-                <div class="flex justify-center mb-4">
-                    <svg class="w-12 h-12 text-green-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                    </svg>
-                </div>
-                <h2 class="text-xl font-semibold text-gray-800 mb-2">Success!</h2>
-                <p class="text-gray-600 mb-4">{{ session('success') }}</p>
-                <button onclick="closePopup()" class="bg-purple-500 text-white px-4 py-2 rounded hover:bg-purple-600 focus:outline-none focus:ring-2 focus:ring-purple-400">
-                    OK
-                </button>
-            </div>
-        </div>
-        @endif
-
-        <!-- Form Edit Artikel -->
         <form action="{{ route('admin.articles.update', $article->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
 
+            <!-- Title -->
             <div class="mb-4">
                 <label class="block text-gray-700 text-sm font-bold mb-2" for="title">
                     Title
@@ -41,6 +24,7 @@
                 @enderror
             </div>
 
+            <!-- Content -->
             <div class="mb-4">
                 <label class="block text-gray-700 text-sm font-bold mb-2" for="content">
                     Content
@@ -53,24 +37,7 @@
                 @enderror
             </div>
 
-            <div class="mb-4">
-                <label class="block text-gray-700 text-sm font-bold mb-2" for="image">
-                    Image
-                </label>
-                <img class="img-preview w-full max-w-sm mb-3 rounded">
-                <div class="mb-2">
-                    @if ($article->image)
-                    <img src="{{ asset('storage/' . $article->image) }}" alt="Current Image" class="h-32 mb-2">
-                    @endif
-                </div>
-                <input type="file" name="image" id="image"
-                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                    onchange="previewImage()">
-                @error('image')
-                <p class="text-red-500 text-xs italic">{{ $message }}</p>
-                @enderror
-            </div>
-
+            <!-- Status -->
             <div class="mb-4">
                 <label class="block text-gray-700 text-sm font-bold mb-2" for="status">
                     Status
@@ -85,6 +52,24 @@
                 @enderror
             </div>
 
+            <!-- Image -->
+            <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="image">
+                    Image
+                </label>
+                @if ($article->image)
+                <div class="mb-2">
+                    <img src="{{ asset('storage/' . $article->image) }}" alt="Current Image" class="h-32 mb-2">
+                </div>
+                @endif
+                <input type="file" name="image" id="image"
+                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                @error('image')
+                <p class="text-red-500 text-xs italic">{{ $message }}</p>
+                @enderror
+            </div>
+
+            <!-- Submit Button -->
             <div class="flex items-center justify-end">
                 <button type="submit"
                     class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
@@ -94,34 +79,31 @@
         </form>
     </div>
 </div>
+
+<!-- Popup Modal -->
+@if (session('success'))
+<div id="successModal" class="fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center z-50">
+    <div class="bg-white p-6 rounded shadow-lg">
+        <p class="text-green-600 font-bold mb-4">{{ session('success') }}</p>
+        <div class="flex justify-end">
+            <button id="closeModal" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                OK
+            </button>
+            <a href="{{ route('admin.articles.index') }}" class="ml-2 bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">
+                Go to Articles
+            </a>
+        </div>
+    </div>
+</div>
+@endif
 @endsection
 
 @section('scripts')
-<!-- TinyMCE Integration -->
-<script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
 <script>
-    tinymce.init({
-        selector: '#content',
-        plugins: 'lists link image table code',
-        toolbar: 'undo redo | styles | bold italic | alignleft aligncenter alignright alignjustify | outdent indent | numlist bullist | link image | code',
-        height: 500,
-        menubar: false,
-        content_style: "body { font-family:Arial,Helvetica,sans-serif; font-size:14px }",
-        setup: function(editor) {
-            editor.on('change', function() {
-                editor.save(); // Ensure synchronization between TinyMCE and the form's textarea
-            });
-        }
+    // Menutup modal saat tombol OK ditekan
+    document.getElementById('closeModal')?.addEventListener('click', function () {
+        const modal = document.getElementById('successModal');
+        modal.style.display = 'none'; // Sembunyikan modal
     });
-
-    // Ensure TinyMCE data is saved before submitting the form
-    document.querySelector('form').addEventListener('submit', function() {
-        tinymce.triggerSave();
-    });
-
-    // // Popup close function
-    // function closePopup() {
-    //     document.getElementById('successPopup').style.display = 'none';
-    // }
 </script>
 @endsection
