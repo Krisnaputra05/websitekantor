@@ -11,9 +11,9 @@ class Category extends Model
 
     protected $fillable = ['name', 'slug'];
     
-    protected $attributes = [
-        'color_class' => 'bg-blue-500', // Default class jika tidak ada warna khusus
-    ];
+    // protected $attributes = [
+    //     'color_class' => 'bg-blue-500', // Default class jika tidak ada warna khusus
+    // ];
 
     public function articles()
     {
