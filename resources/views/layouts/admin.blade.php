@@ -132,5 +132,4 @@
         slugInput.value = slug;
     });
 </script>
-
 </html>

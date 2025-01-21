@@ -49,9 +49,14 @@ Route::prefix('admin')->name('admin.')->group(function () {
         ->name('logout')
         ->middleware('auth');
 
+    // Tambahkan rute preview di dalam grup yang tepat
+
     // Protected Admin Routes
     Route::middleware(['auth'])->group(function () {
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+        Route::get('/articles/{id}/preview', [AdminArticleController::class, 'preview'])
+            ->name('articles.preview');
+        Route::get('/admin/articles', [ArticleController::class, 'index'])->name('admin.articles.index');
 
         // Articles Management
         Route::controller(AdminArticleController::class)->group(function () {
@@ -64,6 +69,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
         });
     });
 });
+
 
 // Route::get('/category/{category:slug}', function (Category $category) {
 //     // Query dasar artikel
@@ -123,4 +129,3 @@ Route::get('/category/all', function () {
         'categories' => Category::all(), // Untuk dropdown kategori
     ]);
 })->name('category.all');
-

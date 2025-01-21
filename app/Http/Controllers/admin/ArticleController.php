@@ -4,23 +4,36 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Article;
+use App\Models\Category; // Tambahkan model Category
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 
 class ArticleController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $articles = Article::latest()->paginate(10);
-        $totalArticles = Article::count(); // Total artikel
+        $status = $request->get('status', 'all'); // Default 'all'
+        $articlesQuery = Article::query();
 
-        return view('admin.articles.index', compact('articles', 'totalArticles'));
+        if ($status === 'published') {
+            $articlesQuery->where('status', 'published');
+        } elseif ($status === 'draft') {
+            $articlesQuery->where('status', 'draft');
+        }
+
+        // Dapatkan artikel sesuai status
+        $articles = $articlesQuery->with('category')->latest()->paginate(10);
+
+        return view('admin.articles.index', compact('articles', 'status'));
+        
     }
+
 
     public function create()
     {
-        return view('admin.articles.create');
+        $categories = Category::all(); // Ambil semua kategori
+        return view('admin.articles.create', compact('categories'));
     }
 
     public function store(Request $request)
@@ -29,6 +42,7 @@ class ArticleController extends Controller
             'title' => 'required|max:255',
             'slug' => 'required|unique:articles',
             'content' => 'required',
+            'category_id' => 'required|exists:categories,id', // Validasi kategori
             'image' => 'nullable|image|max:2048',
             'status' => 'required|in:draft,published',
         ]);
@@ -47,18 +61,14 @@ class ArticleController extends Controller
             ->with('success', 'Article created successfully');
     }
 
-    public function edit($id)
-    {
-        $article = Article::findOrFail($id);
-
-        return view('admin.articles.edit', compact('article'));
-    }
 
     public function update(Request $request, Article $article)
     {
         $validated = $request->validate([
             'title' => 'required|string|max:255',
+            'slug' => 'required|string|max:255|unique:articles,slug,' . $article->id, // Unik kecuali untuk artikel ini
             'content' => 'required',
+            'category_id' => 'required|exists:categories,id', // Validasi kategori
             'status' => 'required|in:published,draft',
             'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
         ]);
@@ -66,19 +76,18 @@ class ArticleController extends Controller
         // Update gambar jika ada
         if ($request->hasFile('image')) {
             if ($article->image) {
-                // Hapus gambar lama
                 Storage::disk('public')->delete($article->image);
             }
-            // Simpan gambar baru
             $validated['image'] = $request->file('image')->store('articles', 'public');
         }
 
-        // Update artikel
+        // Perbarui artikel
         $article->update($validated);
 
         return redirect()->route('admin.articles.edit', $article->id)
             ->with('success', 'Article updated successfully!');
     }
+
 
     public function destroy(Article $article)
     {
@@ -96,11 +105,33 @@ class ArticleController extends Controller
 
     public function show($slug)
     {
-        $article = Article::where('slug', $slug)->firstOrFail(); // Cari artikel berdasarkan slug.
+        $article = Article::where('slug', $slug)->with('category')->firstOrFail();
 
         // Tambahkan logika untuk meningkatkan views
-        $article->increment('views'); // Menambah jumlah view +1
+        $article->increment('views');
 
         return view('articles.show', compact('article'));
+    }
+
+    public function edit($id)
+    {
+        $article = Article::findOrFail($id);
+        $categories = Category::all(); // Ambil semua kategori untuk dropdown
+
+        return view('admin.articles.edit', compact('article', 'categories'));
+    }
+
+
+    public function preview($id)
+    {
+        $article = Article::with('category')->findOrFail($id);
+
+        // Jika artikel sudah dipublikasikan, beri pesan peringatan
+        $warningMessage = null;
+        if ($article->status === 'published') {
+            $warningMessage = "This article is published. You are previewing the published version.";
+        }
+        $article->content = strip_tags($article->content);
+        return view('admin.articles.preview', compact('article', 'warningMessage'));
     }
 }

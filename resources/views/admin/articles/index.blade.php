@@ -1,69 +1,60 @@
 @extends('layouts.admin')
 
-@section('title', 'Manage Articles')
-
-@section('header', 'Manage Articles')
+@section('title', 'Articles')
 
 @section('content')
-<div class="bg-white shadow rounded-lg">
-    <div class="p-6">
-        <div class="flex justify-between items-center mb-6">
-            <h2 class="text-xl font-semibold">Article List</h2>
-            <a href="{{ route('admin.articles.create') }}"
-                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                Create Article
-            </a>
-        </div>
+<div class="container mx-auto p-4">
+    <h1 class="text-2xl font-bold mb-4">Articles {{ $status ? ' - ' . ucfirst($status) : '' }}</h1>
 
-        <!-- Total Articles -->
-        <div class="mb-4">
-            <h3 class="text-gray-600 text-sm">Total Articles: <strong>{{ $totalArticles }}</strong></h3>
-        </div>
+    <!-- Tabel Artikel -->
+    <table class="table-auto w-full border-collapse border border-gray-200">
+        <thead>
+            <tr>
+                <th class="border border-gray-300 px-4 py-2">#</th>
+                <th class="border border-gray-300 px-4 py-2">Title</th>
+                <th class="border border-gray-300 px-4 py-2">Status</th>
+                <th class="border border-gray-300 px-4 py-2">Views</th>
+                <th class="border border-gray-300 px-4 py-2">Created At</th>
+                <th class="border border-gray-300 px-4 py-2">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @forelse ($articles as $article)
+            <tr>
+                <td class="border border-gray-300 px-4 py-2">{{ $loop->iteration }}</td>
+                <td class="border border-gray-300 px-4 py-2">{{ $article->title }}</td>
+                <td class="border border-gray-300 px-4 py-2">
+                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full 
+                        {{ $article->status === 'published' ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800' }}">
+                        {{ ucfirst($article->status) }}
+                    </span>
+                </td>
+                <td class="border border-gray-300 px-4 py-2">{{ $article->views }}</td>
+                <td class="border border-gray-300 px-4 py-2">{{ $article->created_at->format('Y-m-d') }}</td>
+                <td class="border border-gray-300 px-4 py-2">
+                    <!-- Preview Article -->
+                    <a href="{{ route('admin.articles.preview', $article->id) }}" class="text-blue-500">Preview</a>
+                    <!-- Edit Article -->
+                    <a href="{{ route('admin.articles.edit', $article->id) }}" class="text-blue-500 ml-4">Edit</a>
+                    <!-- Delete Article -->
+                    <form class="inline-block" method="POST" action="{{ route('admin.articles.destroy', $article->id) }}" onsubmit="return confirm('Are you sure you want to delete this article?');">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="text-red-500 ml-4">Delete</button>
+                    </form>
+                </td>
+            </tr>
+            @empty
+            <tr>
+                <td colspan="6" class="text-center border border-gray-300 px-4 py-2">No articles found.</td>
+            </tr>
+            @endforelse
+        </tbody>
+    </table>
 
-        <div class="overflow-x-auto">
-            <table class="min-w-full divide-y divide-gray-200">
-                <thead class="bg-gray-50">
-                    <tr>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Title</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Views</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Created At</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
-                    </tr>
-                </thead>
-                <tbody class="bg-white divide-y divide-gray-200">
-                    @foreach ($articles as $article)
-                    <tr>
-                        <td class="px-6 py-4 whitespace-nowrap">{{ $article->title }}</td>
-                        <td class="px-6 py-4 whitespace-nowrap">
-                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full 
-                                {{ $article->status === 'published' ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800' }}">
-                                {{ $article->status }}
-                            </span>
-                        </td>
-                        <td class="px-6 py-4 whitespace-nowrap">{{ $article->views }}</td>
-                        <td class="px-6 py-4 whitespace-nowrap">{{ $article->created_at->format('Y-m-d') }}</td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                            <a href="{{ route('admin.articles.edit', $article) }}"
-                                class="text-indigo-600 hover:text-indigo-900 mr-3">Edit</a>
-                            <form class="inline-block" method="POST"
-                                action="{{ route('admin.articles.destroy', $article) }}"
-                                onsubmit="return confirm('Are you sure?');">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit"
-                                    class="text-red-600 hover:text-red-900">Delete</button>
-                            </form>
-                        </td>
-                    </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        </div>
-
-        <div class="mt-4">
-            {{ $articles->links() }}
-        </div>
+    <!-- Pagination -->
+    <div class="mt-4">
+        {{ $articles->links() }}
     </div>
 </div>
 

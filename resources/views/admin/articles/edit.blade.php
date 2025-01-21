@@ -24,6 +24,38 @@
                 @enderror
             </div>
 
+            <!-- Category -->
+            <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="category_id">
+                    Category
+                </label>
+                <select name="category_id" id="category_id"
+                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+                    <option value="" disabled selected>Select a category</option>
+                    @foreach ($categories as $category)
+                    <option value="{{ $category->id }}" {{ old('category_id', $article->category_id) == $category->id ? 'selected' : '' }}>
+                        {{ $category->name }}
+                    </option>
+                    @endforeach
+                </select>
+                @error('category_id')
+                <p class="text-red-500 text-xs italic">{{ $message }}</p>
+                @enderror
+            </div>
+
+            <!-- Slug -->
+            <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="slug">
+                    Slug
+                </label>
+                <input type="text" name="slug" id="slug"
+                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    value="{{ old('slug', $article->slug) }}" required>
+                @error('slug')
+                <p class="text-red-500 text-xs italic">{{ $message }}</p>
+                @enderror
+            </div>
+
             <!-- Content -->
             <div class="mb-4">
                 <label class="block text-gray-700 text-sm font-bold mb-2" for="content">
@@ -101,7 +133,7 @@
 @section('scripts')
 <script>
     // Menutup modal saat tombol OK ditekan
-    document.getElementById('closeModal')?.addEventListener('click', function () {
+    document.getElementById('closeModal')?.addEventListener('click', function() {
         const modal = document.getElementById('successModal');
         modal.style.display = 'none'; // Sembunyikan modal
     });
