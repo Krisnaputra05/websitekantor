@@ -37,7 +37,6 @@
                 </form>
             </div>
 
-
             <!-- Grid Artikel -->
             @if($articles->count() > 0)
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -47,7 +46,7 @@
                         <img src="{{ $articles[0]->image_url }}" alt="{{ $articles[0]->title }}" class="w-full h-64 object-cover">
 
                         <div class="p-6">
-                            <span class="text-xs font-semibold uppercase text-white px-3 py-1 rounded {{ $articles[0]->category->color_class ?? 'bg-blue-500' }}">
+                            <span class="text-xs font-semibold uppercase text-white px-3 py-1 rounded {{ $articles[0]->category->color_class ?? 'bg-darkRed' }}">
                                 {{ strtoupper($articles[0]->category->name) }}
                             </span>
                             <h2 class="text-2xl font-bold text-gray-800 mt-3">{{ $articles[0]->title }}</h2>
@@ -63,13 +62,13 @@
                 </div>
                 <!-- Artikel Lainnya -->
                 @foreach($articles->skip(1)->take(4) as $article)
-                <div class="bg-white shadow-lg rounded-lg overflow-hidden  transition duration-300">
+                <div class="bg-white shadow-lg rounded-lg overflow-hidden transition duration-300">
                     <a href="{{ route('articles.show', $article->slug) }}">
                         <img src="{{ $article->image_url }}" alt="{{ $article->title }}" class="w-full h-48 object-cover">
 
                         <div class="p-6">
-                            <span class="text-xs font-semibold uppercase text-white px-3 py-1 rounded {{ $articles[0]->category->color_class ?? 'bg-blue-500' }}">
-                                {{ strtoupper($articles[0]->category->name) }}
+                            <span class="text-xs font-semibold uppercase text-white px-3 py-1 rounded {{ $article->category->color_class ?? 'bg-darkRed' }}">
+                                {{ strtoupper($article->category->name) }}
                             </span>
                             <h2 class="text-lg font-bold text-gray-800 mt-3">{{ $article->title }}</h2>
 
@@ -92,9 +91,7 @@
     </div>
 </div>
 
-
 <div>
-
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-12 mt-12 ml-16">
         <!-- Artikel Utama -->
         <div class="lg:col-span-2">
@@ -114,7 +111,7 @@
                         alt="{{ $article->title }}"
                         class="w-24 h-24 object-cover rounded-lg mr-6">
                     <div>
-                        <a href="{{ $article->url }}" class="text-lg font-semibold text-gray-800 hover:text-blue-500 hover:underline">
+                        <a href="{{ route('articles.show', $article->slug) }}" class="text-lg font-semibold text-gray-800 hover:text-blue-500 hover:underline">
                             {{ $article->title }}
                         </a>
                         <div class="text-sm text-gray-500 mt-2">
@@ -127,7 +124,7 @@
                 @endforeach
             </div>
         </div>
-    
+
         <!-- Artikel Terpopuler -->
         <aside class="lg:col-span-1 mr-16 pr-6">
             <div class="bg-white p-6 rounded-lg shadow-lg">
@@ -155,6 +152,6 @@
             </div>
         </aside>
     </div>
-
 </div>
+
 @endsection
