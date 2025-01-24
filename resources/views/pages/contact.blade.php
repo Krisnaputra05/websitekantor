@@ -1,122 +1,134 @@
 @extends('layouts.app')
 
 @section('content')
-<h1 class="text-4xl font-bold text-center text-gray-800 px-6 my-10">Artikel</h1>
+<header class="bg-blue-500 text-white py-8 shadow-lg">
+    <div class="relative">
+        <form action="{{ request('category', 'all') === 'all' ? '/category/all' : '/category/' . request('category') }}" method="GET" class="absolute top-0 right-0 mt-4 mr-4 flex items-center w-full lg:w-auto">
+            <input
+                type="text"
+                name="search"
+                placeholder="Cari artikel..."
+                value="{{ request('search') }}"
+                class="flex-1 lg:w-96 bg-white border border-gray-300 rounded-l-md px-4 py-2 text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                autocomplete="off">
+            <button type="submit" class="bg-black text-white px-4 py-2 rounded-r-md hover:bg-red-600 transition duration-200">
+                Cari
+            </button>
+        </form>
+    </div>
+    <div class="container mx-auto px-4 text-center">
+        <h1 class="text-4xl font-bold">Artikel Hukum</h1>
+        <p class="text-lg mt-2">Kumpulan artikel terkini seputar dunia hukum</p>
+    </div>
+</header>
 
-<div class="container mx-auto px-6">
-    <div class="flex flex-col lg:flex-row lg:gap-12">
+<div class="container mx-auto px-4 mt-10">
+    <div class="flex flex-col lg:flex-row lg:gap-8">
         <!-- Konten Utama -->
         <div class="flex-1">
-            <!-- Pencarian Kategori -->
-            <div class="max-w-lg mx-auto mb-8">
-                <form action="{{ request('category', 'all') === 'all' ? '/category/all' : '/category/' . request('category') }}" method="GET" class="flex items-center bg-gray-100 p-3 rounded-lg shadow-lg">
-                    {{-- Input Search --}}
+            <!-- Pencarian dan Dropdown -->
+            <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between bg-gray-100 p-6 rounded-lg shadow-md mb-6">
+                <!-- Pencarian -->
+                <!-- <form action="{{ request('category', 'all') === 'all' ? '/category/all' : '/category/' . request('category') }}" method="GET" class="flex items-center w-full lg:w-auto mb-4 lg:mb-0">
                     <input
                         type="text"
                         name="search"
                         placeholder="Cari artikel..."
                         value="{{ request('search') }}"
-                        class="flex-1 bg-transparent outline-none px-3 py-2 text-gray-800 placeholder-gray-500"
+                        class="flex-1 lg:w-96 bg-white border border-gray-300 rounded-l-md px-4 py-2 text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
                         autocomplete="off">
-                    {{-- Dropdown Categories --}}
-                    <select onchange="location = this.value" class="bg-white px-3 py-2 text-gray-800 rounded-md outline-none">
-                        <option value="{{ route('category.show', 'all') }}" {{ request('category', 'all') === 'all' ? 'selected' : '' }}>
-                            Semua Kategori
-                        </option>
+                    <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-r-md hover:bg-blue-600 transition duration-200">
+                        Cari
+                    </button>
+                </form> -->
+
+                <!-- Dropdown Kategori -->
+                <div class="relative w-full lg:w-auto">
+                    <select onchange="location = this.value" class="bg-white border border-gray-300 px-4 py-2 rounded-md shadow-sm text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <option value="{{ route('category.show', 'all') }}" {{ request('category', 'all') === 'all' ? 'selected' : '' }}>Semua Kategori</option>
                         @foreach($categories as $category)
                         <option value="{{ route('category.show', $category->slug) }}" {{ request('category') === $category->slug ? 'selected' : '' }}>
                             {{ $category->name }}
                         </option>
                         @endforeach
                     </select>
-
-                    {{-- Submit Button --}}
-                    <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-lg ml-2 hover:bg-blue-600 transition duration-200">
-                        Cari
-                    </button>
-                </form>
+                </div>
             </div>
 
-            <!-- Grid Artikel -->
-            @if($articles->count() > 0)
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Artikel Pertama (Lebih Besar) -->
-                <div class="md:col-span-2 bg-white shadow-lg rounded-lg overflow-hidden transition duration-300">
-                    <a href="{{ route('articles.show', $articles[0]->slug) }}">
-                        <img src="{{ $articles[0]->image_url }}" alt="{{ $articles[0]->title }}" class="w-full h-64 object-cover">
-
-                        <div class="p-6">
-                            <span class="text-xs font-semibold uppercase text-white px-3 py-1 rounded {{ $articles[0]->category->color_class ?? 'bg-darkRed' }}">
-                                {{ strtoupper($articles[0]->category->name) }}
-                            </span>
-                            <h2 class="text-2xl font-bold text-gray-800 mt-3">{{ $articles[0]->title }}</h2>
-                            <p class="text-gray-600 text-sm mt-2">
-                                {{ \Illuminate\Support\Str::limit(strip_tags($articles[0]->content), 120) }}
-                            </p>
-
-                            <div class="mt-4">
-                                <span class="text-blue-500 font-medium">Selengkapnya &raquo;</span>
+            <!-- Artikel -->
+            <div>
+                @if($articles->count() > 0)
+                <!-- Grid Artikel -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    @foreach($articles->take(2) as $article)
+                    <div class="bg-white shadow-md rounded-lg overflow-hidden hover:shadow-lg transition-transform transform hover:scale-105 duration-200">
+                        <a href="{{ route('articles.show', $article->slug) }}">
+                            <img src="{{ $article->image_url }}" alt="{{ $article->title }}" class="w-full h-48 object-cover">
+                            <div class="p-4">
+                                <span class="text-xs font-semibold uppercase text-white px-2 py-1 rounded {{ $article->category->color_class ?? 'bg-red-500' }}">
+                                    {{ strtoupper($article->category->name) }}
+                                </span>
+                                <h2 class="text-lg font-bold text-gray-800 mt-2">{{ $article->title }}</h2>
+                                <p class="text-gray-600 text-sm mt-1">
+                                    {{ \Illuminate\Support\Str::limit(strip_tags($article->content), 100) }}
+                                </p>
+                                <div class="mt-3">
+                                    <span class="text-blue-500 font-medium">Selengkapnya &raquo;</span>
+                                </div>
                             </div>
-                        </div>
-                    </a>
+                        </a>
+                    </div>
+                    @endforeach
                 </div>
+
                 <!-- Artikel Lainnya -->
-                @foreach($articles->skip(1)->take(4) as $article)
-                <div class="bg-white shadow-lg rounded-lg overflow-hidden transition duration-300">
-                    <a href="{{ route('articles.show', $article->slug) }}">
-                        <img src="{{ $article->image_url }}" alt="{{ $article->title }}" class="w-full h-48 object-cover">
-
-                        <div class="p-6">
-                            <span class="text-xs font-semibold uppercase text-white px-3 py-1 rounded {{ $article->category->color_class ?? 'bg-darkRed' }}">
-                                {{ strtoupper($article->category->name) }}
-                            </span>
-                            <h2 class="text-lg font-bold text-gray-800 mt-3">{{ $article->title }}</h2>
-
-                            <p class="text-gray-600 text-sm mt-2">
-                                {{ \Illuminate\Support\Str::limit(strip_tags($article->content), 100) }}
-                            </p>
-
-                            <div class="mt-4">
-                                <span class="text-blue-500 font-medium">Selengkapnya &raquo;</span>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
+                    @foreach($articles->skip(2)->take(3) as $article)
+                    <div class="bg-white shadow-md rounded-lg overflow-hidden hover:shadow-lg transition-transform transform hover:scale-105 duration-200">
+                        <a href="{{ route('articles.show', $article->slug) }}">
+                            <img src="{{ $article->image_url }}" alt="{{ $article->title }}" class="w-full h-32 object-cover">
+                            <div class="p-4">
+                                <span class="text-xs font-semibold uppercase text-white px-2 py-1 rounded {{ $article->category->color_class ?? 'bg-red-500' }}">
+                                    {{ strtoupper($article->category->name) }}
+                                </span>
+                                <h2 class="text-base font-bold text-gray-800 mt-2">{{ $article->title }}</h2>
+                                <p class="text-gray-600 text-sm mt-1">
+                                    {{ \Illuminate\Support\Str::limit(strip_tags($article->content), 60) }}
+                                </p>
+                                <div class="mt-2">
+                                    <span class="text-blue-500 font-medium">Selengkapnya &raquo;</span>
+                                </div>
                             </div>
-                        </div>
-                    </a>
+                        </a>
+                    </div>
+                    @endforeach
                 </div>
-                @endforeach
+                @else
+                <p class="text-center text-gray-500">Tidak ada artikel yang tersedia.</p>
+                @endif
             </div>
-            @else
-            <p class="text-center text-gray-500">Tidak ada artikel yang tersedia.</p>
-            @endif
         </div>
     </div>
-</div>
 
-<div>
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-12 mt-12 ml-16">
-        <!-- Artikel Utama -->
+    <!-- Artikel Hukum Terbaru dan Terpopuler -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mt-10">
+        <!-- Artikel Hukum Terbaru -->
         <div class="lg:col-span-2">
-            <!-- Header Artikel Utama -->
-            <div class="text-center mx-auto">
-                <h2 class="text-2xl font-bold text-gray-800 mb-2 pl-4 ">
-                    Artikel Hukum Terbaru
-                </h2>
-                <p class="text-gray-600">
-                    Akses mudah kumpulan artikel Hukum
-                </p>
+            <div class="text-center mb-6">
+                <h2 class="text-2xl font-bold text-gray-800">Artikel Hukum Terbaru</h2>
+                <p class="text-gray-600">Akses mudah kumpulan artikel hukum</p>
             </div>
-            <div class="space-y-8 ml-6"> <!-- Penambahan margin left -->
+            <div class="space-y-6">
                 @foreach ($articles->take(5) as $article)
-                <div class="flex items-start bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition duration-300">
-                    <img src="{{ $article->image_url }}"
-                        alt="{{ $article->title }}"
-                        class="w-24 h-24 object-cover rounded-lg mr-6">
+                <div class="flex items-start bg-white p-5 rounded-lg shadow-md hover:shadow-lg transition duration-200">
+                    <img src="{{ $article->image_url }}" alt="{{ $article->title }}" class="w-20 h-20 object-cover rounded-lg mr-4">
                     <div>
                         <a href="{{ route('articles.show', $article->slug) }}" class="text-lg font-semibold text-gray-800 hover:text-blue-500 hover:underline">
                             {{ $article->title }}
                         </a>
-                        <div class="text-sm text-gray-500 mt-2">
+                        <div class="text-sm text-gray-500 mt-1">
                             <span>{{ $article->created_at->format('d M Y') }}</span>
-                            <span>•</span>
+                            <span>&bull;</span>
                             <span>{{ $article->views }} views</span>
                         </div>
                     </div>
@@ -126,23 +138,20 @@
         </div>
 
         <!-- Artikel Terpopuler -->
-        <aside class="lg:col-span-1 mr-16 pr-6">
-            <div class="bg-white p-6 rounded-lg shadow-lg">
-                <h2 class="text-xl font-bold text-gray-800 border-l-4 border-blue-500 pl-3 mb-6">
-                    Artikel Terpopuler
-                </h2>
-                <ul class="space-y-6">
+        <aside class="lg:col-span-1">
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <h2 class="text-xl font-bold text-gray-800 border-l-4 border-blue-500 pl-3 mb-4">Artikel Terpopuler</h2>
+                <ul class="space-y-4">
                     @foreach ($popularPosts as $post)
-                    <li class="flex items-start gap-4">
+                    <li class="flex items-start gap-3">
                         <span class="text-blue-500 text-lg font-bold">{{ $loop->iteration }}</span>
                         <div class="flex-1">
-                            <a href="{{ route('articles.show', $post->slug) }}"
-                                class="block text-lg font-semibold text-gray-800 hover:text-blue-500 hover:underline">
+                            <a href="{{ route('articles.show', $post->slug) }}" class="block text-lg font-semibold text-gray-800 hover:text-blue-500 hover:underline">
                                 {{ $post->title }}
                             </a>
-                            <div class="text-sm text-gray-500 flex items-center gap-2">
+                            <div class="text-sm text-gray-500">
                                 <span>{{ $post->created_at->format('d M Y') }}</span>
-                                <span>•</span>
+                                <span>&bull;</span>
                                 <span>{{ $post->views }} views</span>
                             </div>
                         </div>
@@ -153,5 +162,4 @@
         </aside>
     </div>
 </div>
-
 @endsection
