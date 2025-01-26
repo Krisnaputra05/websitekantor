@@ -177,7 +177,7 @@
 <div class="bg-[#FFFFFF] py-16 sm:py-20 lg:py-24 mb-14">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <!-- Judul -->
-        <div data-aos="fade-up" data-aos-duration="1000">
+        <div data-aos="fade-up" data-aos-duration="600">
             <h1 class="text-3xl sm:text-4xl font-extrabold text-[#6E0E0A] mb-6 sm:mb-8">
                 Mengapa Memilih <span class="text-[#A31621]">Kantor Hukum Anda?</span>
             </h1>
@@ -190,8 +190,8 @@
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-10 lg:gap-12">
             <!-- Keahlian -->
             <div
-                class="bg-[#F4EDEB] shadow-lg rounded-lg p-4 sm:p-6 transition-transform transform hover:scale-105 border-t-4 border-[#6E0E0A]"
-                data-aos="zoom-in" data-aos-delay="100" data-aos-duration="800">
+                class="bg-[#F4EDEB] shadow-lg rounded-lg p-4 sm:p-6 transition-transform transform hover:scale-102 border-t-4 border-[#6E0E0A]"
+                data-aos="fade-up" data-aos-delay="100" data-aos-duration="600">
                 <div class="flex items-center justify-center mb-4 sm:mb-6">
                     <img src="{{ asset('/icons/keahlian-icon.png') }}" alt="Keahlian Icon" class="w-12 sm:w-16 h-12 sm:h-16">
                 </div>
@@ -203,8 +203,8 @@
 
             <!-- Komitmen -->
             <div
-                class="bg-[#F4EDEB] shadow-lg rounded-lg p-4 sm:p-6 transition-transform transform hover:scale-105 border-t-4 border-[#A31621]"
-                data-aos="zoom-in" data-aos-delay="200" data-aos-duration="800">
+                class="bg-[#F4EDEB] shadow-lg rounded-lg p-4 sm:p-6 transition-transform transform hover:scale-102 border-t-4 border-[#A31621]"
+                data-aos="fade-up" data-aos-delay="200" data-aos-duration="600">
                 <div class="flex items-center justify-center mb-4 sm:mb-6">
                     <img src="{{ asset('/icons/komitmen-icon.png') }}" alt="Komitmen Icon" class="w-12 sm:w-16 h-12 sm:h-16">
                 </div>
@@ -216,8 +216,8 @@
 
             <!-- Tersertifikasi -->
             <div
-                class="bg-[#F4EDEB] shadow-lg rounded-lg p-4 sm:p-6 transition-transform transform hover:scale-105 border-t-4 border-[#8E6246]"
-                data-aos="zoom-in" data-aos-delay="300" data-aos-duration="800">
+                class="bg-[#F4EDEB] shadow-lg rounded-lg p-4 sm:p-6 transition-transform transform hover:scale-102 border-t-4 border-[#8E6246]"
+                data-aos="fade-up" data-aos-delay="300" data-aos-duration="600">
                 <div class="flex items-center justify-center mb-4 sm:mb-6">
                     <img src="{{ asset('/icons/tersertifikasi-icon.png') }}" alt="Tersertifikasi Icon" class="w-12 sm:w-16 h-12 sm:h-16">
                 </div>
@@ -229,8 +229,8 @@
 
             <!-- Pendekatan Inovatif -->
             <div
-                class="bg-[#F4EDEB] shadow-lg rounded-lg p-4 sm:p-6 transition-transform transform hover:scale-105 border-t-4 border-[#C5A28F]"
-                data-aos="zoom-in" data-aos-delay="400" data-aos-duration="800">
+                class="bg-[#F4EDEB] shadow-lg rounded-lg p-4 sm:p-6 transition-transform transform hover:scale-102 border-t-4 border-[#C5A28F]"
+                data-aos="fade-up" data-aos-delay="400" data-aos-duration="600">
                 <div class="flex items-center justify-center mb-4 sm:mb-6">
                     <img src="{{ asset('/icons/inovatif-icon.png') }}" alt="Inovatif Icon" class="w-12 sm:w-16 h-12 sm:h-16">
                 </div>
@@ -242,5 +242,6 @@
         </div>
     </div>
 </div>
+
 
 @endsection

@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\ArticleController as AdminArticleController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Models\Contact;
 use PhpParser\Node\Expr\AssignOp\Concat;
+use App\Http\Controllers\RecentArticlesController;
 use App\Models\Category;
 use App\Models\Article;
 
@@ -69,7 +70,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
         });
     });
 });
-
+Route::get('/recent-articles', [RecentArticlesController::class, 'index'])->name('articles.recent');
 
 // Route::get('/category/{category:slug}', function (Category $category) {
 //     // Query dasar artikel

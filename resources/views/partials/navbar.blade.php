@@ -1,4 +1,4 @@
-<nav class="bg-[#A31621] border-b border-[#B08C7A] shadow-sm font-poppins fixed top-0 w-full z-50">
+<nav class="bg-[#A31621] border-b border-white  shadow-sm font-poppins fixed top-0 w-full z-50">
     <div class="container mx-auto px-4 sm:px-6 lg:px-8">
         <div class="relative flex h-16 items-center justify-between">
             <!-- Logo -->

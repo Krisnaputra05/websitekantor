@@ -16,6 +16,6 @@ class ArticleSeeder extends Seeder
         }
 
         // Buat 20 artikel menggunakan factory
-        Article::factory(10)->create();
+        Article::factory(50)->create();
     }
 }
