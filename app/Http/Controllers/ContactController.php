@@ -100,3 +100,4 @@ class ContactController extends Controller
         return view('articles.index', compact('article', 'categories'));
     }
 }
+    
