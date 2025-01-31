@@ -4,26 +4,26 @@
 
 @section('content')
 <div class="bg-white sm:py-16 md:py-18 lg:py-20">
-    <div class="container mx-auto px-6 lg:px-8 flex flex-col lg:flex-row items-center">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 flex flex-col lg:flex-row items-center">
         <!-- Text Section -->
-        <div class="lg:w-1/2" data-aos="fade-right">
-            <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-[#6E0E0A] leading-snug lg:leading-tight text-center lg:text-left">
+        <div class="lg:w-1/2 w-full" data-aos="fade-right">
+            <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-[#6E0E0A] leading-snug lg:leading-tight text-center lg:text-left">
                 Selamat Datang di <span class="text-[#A31621]">Kantor Hukum</span>
             </h1>
-            <p class="mt-6 text-base md:text-lg lg:text-xl text-[#593C39] text-justify lg:text-left">
+            <p class="mt-4 sm:mt-6 text-sm sm:text-base md:text-lg lg:text-xl text-[#593C39] text-justify lg:text-left">
                 Kantor hukum terkemuka di Denpasar, Bali, Indonesia! Berdiri sejak 1993, kami menyediakan layanan jasa hukum terbaik di seluruh Indonesia.
                 Sebagai Pengacara, Auditor Hukum, Konsultan Hukum yang berpengalaman dalam bidang hukum perdata khususnya hukum bisnis & perbankan.
             </p>
             <div class="flex justify-center lg:justify-start">
                 <button onclick="window.location.href='https://wa.me/6281234567890'"
-                    class="mt-6 inline-flex items-center justify-center bg-[#6E0E0A] text-white font-semibold py-3 px-6 rounded-lg shadow-md hover:bg-[#A31621] transition duration-300">
+                    class="mt-4 sm:mt-6 inline-flex items-center justify-center bg-[#6E0E0A] text-white font-semibold py-2 sm:py-3 px-4 sm:px-6 rounded-lg shadow-md hover:bg-[#A31621] transition duration-300">
                     Selesaikan Masalahmu, Konsultasikan Sekarang!
                 </button>
             </div>
         </div>
 
         <!-- Image Section -->
-        <div class="relative lg:w-1/2 w-full mt-10 lg:mt-0 lg:pl-16" data-aos="fade-left">
+        <div class="relative lg:w-1/2 w-full mt-8 lg:mt-0 lg:pl-8 xl:pl-16" data-aos="fade-left">
             <!-- Swiper -->
             <div class="swiper">
                 <div class="swiper-wrapper">
@@ -47,6 +47,7 @@
         </div>
     </div>
 </div>
+
 
 
 <div class="bg-gray-50 py-16">
