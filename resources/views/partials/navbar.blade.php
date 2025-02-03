@@ -56,10 +56,26 @@
     <!-- Mobile Menu -->
     <div id="mobile-menu" class="hidden lg:hidden">
         <div class="space-y-1 px-2 pb-3 pt-2">
-            <a href="{{ route('home') }}" class="block rounded-md bg-[#870E18] px-3 py-2 text-base font-medium text-white">Beranda</a>
-            <a href="{{ route('about') }}" class="block rounded-md px-3 py-2 text-base font-medium text-white hover:bg-[#870E18] hover:text-white">Tentang Kami</a>
-            <a href="{{ route('consultation') }}" class="block rounded-md px-3 py-2 text-base font-medium text-white hover:bg-[#870E18] hover:text-white">Konsultasi</a>
-            <a href="{{ route('contact') }}" class="block rounded-md px-3 py-2 text-base font-medium text-white hover:bg-[#870E18] hover:text-white">Konten Hukum</a>
+            <a href="{{ route('home') }}"
+                class="block rounded-md px-3 py-2 text-base font-medium text-white 
+                {{ request()->routeIs('home') ? 'bg-[#870E18]' : 'hover:bg-[#870E18] hover:text-white' }}">
+                Beranda
+            </a>
+            <a href="{{ route('about') }}"
+                class="block rounded-md px-3 py-2 text-base font-medium text-white 
+                {{ request()->routeIs('about') ? 'bg-[#870E18]' : 'hover:bg-[#870E18] hover:text-white' }}">
+                Tentang Kami
+            </a>
+            <a href="{{ route('consultation') }}"
+                class="block rounded-md px-3 py-2 text-base font-medium text-white 
+                {{ request()->routeIs('consultation') ? 'bg-[#870E18]' : 'hover:bg-[#870E18] hover:text-white' }}">
+                Konsultasi
+            </a>
+            <a href="{{ route('contact') }}"
+                class="block rounded-md px-3 py-2 text-base font-medium text-white 
+                {{ request()->routeIs('contact') ? 'bg-[#870E18]' : 'hover:bg-[#870E18] hover:text-white' }}">
+                Konten Hukum
+            </a>
         </div>
     </div>
 </nav>

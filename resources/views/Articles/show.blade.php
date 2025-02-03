@@ -40,10 +40,10 @@
 
         {{-- Gambar Artikel --}}
         @if($article->image)
-        <div class="mb-6">
+        <div class="mb-6 justify-centercenter">
             <img src="{{ asset('storage/' . $article->image) }}"
                 alt="{{ $article->title }}"
-                class="w-full h-auto object-cover rounded-lg shadow-lg">
+                class="w-2/3 h-auto object-cover rounded-lg shadow-lg">
         </div>
         @endif
 
@@ -53,26 +53,27 @@
         </div>
     </div>
 
-    {{-- Sidebar --}}
-    <div class="bg-white p-6 rounded-lg shadow-lg">
-        {{-- Artikel Populer --}}
-        <h2 class="text-2xl font-bold mb-4 text-gray-800">Popular Posts</h2>
+    {{-- Sidebar Popular Posts (Tanpa Scroll) --}}
+    <div class="bg-white p-6 rounded-lg shadow-xl border border-gray-200">
+        <h2 class="text-3xl font-bold mb-4 text-gray-900 border-b-2 border-gray-300 pb-3">Popular Posts</h2>
         <ul class="space-y-4">
-            @if ($popularPosts->isNotEmpty())
-            @foreach ($popularPosts as $post)
-            <li class="flex items-start gap-4">
-                <img src="{{ asset('storage/' . $post->image) }}" alt="{{ $post->title }}" class="w-16 h-16 object-cover rounded-lg">
-                <div>
-                    <a href="{{ route('articles.show', $post->slug) }}" class="text-lg font-semibold text-gray-800 hover:text-blue-500 hover:underline">
+            @forelse ($popularPosts->take(15) as $post)
+            <li class="flex items-center gap-4 p-3 hover:bg-gray-50 rounded-lg transition duration-200">
+                {{-- Gambar Artikel Popular --}}
+                <img src="{{ $post->image ? asset('storage/' . $post->image) : '/icons/placeholder.png' }}"
+                    alt="{{ $post->title }}"
+                    class="w-24 h-24 object-cover rounded-lg shadow-md border border-gray-300" loading="lazy">
+                <div class="flex-1">
+                    <a href="{{ route('articles.show', $post->slug) }}"
+                        class="text-lg font-semibold text-gray-900 hover:text-blue-600 hover:underline transition duration-200">
                         {{ $post->title }}
                     </a>
-                    <p class="text-sm text-gray-500">{{ $post->created_at->format('F d, Y') }}</p>
+                    <p class="text-sm text-gray-500 mt-1">{{ $post->created_at->format('F d, Y') }}</p>
                 </div>
             </li>
-            @endforeach
-            @else
-            <p class="text-gray-500">Belum ada artikel populer.</p>
-            @endif
+            @empty
+            <p class="text-gray-500 text-center py-6">Belum ada artikel populer.</p>
+            @endforelse
         </ul>
     </div>
 </div>

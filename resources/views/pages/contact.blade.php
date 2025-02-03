@@ -95,15 +95,15 @@
         </div>
     </div>
 
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mt-10">
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mt-10 mb-10">
         <!-- Kolom Konten Utama -->
         <div class="lg:col-span-2">
-            <div class="text-center mb-8">
+            <div class="text-center mb-14 mt-8">
                 <h2 class="text-2xl font-bold text-[#611a1d]">Artikel Hukum Terbaru</h2>
                 <p class="text-[#8c2d33] text-sm md:text-base mt-2">Akses mudah kumpulan artikel hukum</p>
             </div>
             <div class="space-y-6">
-                @foreach ($articles->take(5) as $article)
+                @foreach ($articles->take(4) as $article)
                 <div class="flex flex-col md:flex-row items-start bg-[#f6f1ed] p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300">
                     <!-- Gambar Artikel -->
                     <div class="relative w-full md:w-20 h-20">

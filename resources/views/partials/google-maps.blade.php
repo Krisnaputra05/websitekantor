@@ -24,7 +24,7 @@
 
     <!-- Contact Button -->
     <div class="mt-2 mb-0">
-        <a href="{{ url('/contact') }}"
+        <a href="{{ url('/consultation') }}"
             class="bg-[#582c2e] hover:bg-[#7e4b4e] text-white font-semibold py-2 px-4 rounded-lg shadow-md transition duration-300 ease-in-out text-sm sm:text-base">
             Hubungi Kami
         </a>
