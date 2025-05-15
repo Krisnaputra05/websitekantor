@@ -17,7 +17,8 @@ class Article extends Model
         'image',
         'status',
         'published_at',
-        'views', // Tambahkan views untuk jumlah kunjungan
+        'views',
+        'category_id', // Tambahkan views untuk jumlah kunjungan
     ];
 
     // Casting kolom ke tipe data tertentu

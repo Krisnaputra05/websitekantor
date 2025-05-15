@@ -12,7 +12,7 @@
                 <div class="bg-white rounded-lg shadow-lg overflow-hidden hover:scale-105 transition duration-300">
                     <img src="{{ asset('storage/' . $article->image) }}" alt="{{ $article->title }}" class="w-full h-48 object-cover">
                     <div class="p-5">
-                        <span class="text-xs font-semibold uppercase bg-purple-500 text-white px-2 py-1 rounded">
+                        <span class="text-xs font-semibold uppercase bg-[#8c2d33] text-white px-2 py-1 rounded">
                             {{ $article->category->name }}
                         </span>
                         <h2 class="text-lg font-semibold text-gray-800 mt-2">

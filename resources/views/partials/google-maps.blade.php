@@ -1,4 +1,4 @@
-<div class="flex flex-col items-center justify-center bg-gradient-to-br from-white to-[#f7ebe8] px-4 sm:px-6 md:px-10 lg:px-20 py-10 sm:py-12 md:py-16 lg:py-20">
+<div class="flex flex-col items-center justify-center bg-gradient-to-br bg-white px-4 sm:px-6 md:px-10 lg:px-20 py-10 sm:py-12 md:py-16 lg:py-20">
     <!-- Header Section -->
     <div class="text-center mb-2">
         <h1 class="text-3xl sm:text-4xl font-extrabold text-[#582c2e]">

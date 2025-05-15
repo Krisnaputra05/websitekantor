@@ -73,20 +73,21 @@
                 @enderror
             </div>
 
+            
             <!-- Input Category -->
             <div class="mb-4">
                 <label class="block text-gray-700 text-sm font-bold mb-2" for="category">Category</label>
-                <select name="category" id="category"
+                <select name="category_id" id="category"
                     class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-                    <option value="" disabled {{ old('category') ? '' : 'selected' }}>Select a category</option>
+                    <option value="" disabled {{ old('category_id') ? '' : 'selected' }}>Select a category</option>
                     @foreach($categories as $category)
-                    <option value="{{ $category->id }}" {{ old('category') == $category->id ? 'selected' : '' }}>
+                    <option value="{{ $category->id }}" {{ old('category_id') == $category->id ? 'selected' : '' }}>
                         {{ $category->name }}
                     </option>
                     @endforeach
                 </select>
                 <p id="error-category" class="text-red-500 text-xs italic hidden">Category is required.</p>
-                @error('category')
+                @error('category_id')
                 <p class="text-red-500 text-xs italic">{{ $message }}</p>
                 @enderror
             </div>
