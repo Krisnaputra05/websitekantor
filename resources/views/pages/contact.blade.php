@@ -110,24 +110,24 @@
                         <img src="{{ $article->image_url }}" alt="{{ $article->title }}" class="w-full h-full object-cover rounded-lg">
                     </div>
                     <!-- Konten Artikel -->
-                    <div class="flex-1 ml-0 md:ml-4 mt-4 md:mt-0">
+                    <a href="{{ route('articles.show', $article->slug) }}" class="flex-1 ml-0 md:ml-4 mt-4 md:mt-0 block group">
                         <!-- Label Kategori -->
                         <div class="mb-2">
-                            <span class="bg-[#8c2d33] text-white text-xs md:text-sm font-semibold px-3 py-1 rounded-full shadow-md transition-colors duration-200 hover:bg-[#611a1d]">
+                            <span class="bg-[#8c2d33] text-white text-xs md:text-sm font-semibold px-3 py-1 rounded-full shadow-md transition-colors duration-200 group-hover:bg-[#611a1d]">
                                 {{ $article->category->name }}
                             </span>
                         </div>
                         <!-- Judul Artikel -->
-                        <a href="{{ route('articles.show', $article->slug) }}" class="block text-lg font-semibold text-[#611a1d] hover:text-[#8c2d33] hover:underline transition-colors duration-200">
+                        <div class="text-lg font-semibold text-[#611a1d] group-hover:text-[#8c2d33] transition-colors duration-200">
                             {{ $article->title }}
-                        </a>
+                        </div>
                         <!-- Informasi Tambahan -->
                         <div class="text-xs md:text-sm text-[#8c2d33] mt-2 flex items-center gap-2">
                             <span>{{ $article->created_at->format('d M Y') }}</span>
                             <span>&bull;</span>
                             <span>{{ $article->views }} views</span>
                         </div>
-                    </div>
+                    </a>
                 </div>
                 @endforeach
             </div>

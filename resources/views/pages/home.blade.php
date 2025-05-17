@@ -50,7 +50,7 @@
 
 
 
-<div class="bg-gray-50 py-16">
+<div class="bg-white py-16">
     <div class="container mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
         <!-- Image Section -->
         <div data-aos="fade-right">

@@ -3,7 +3,7 @@
 @section('title', 'Konsultasi')
 
 @section('content')
-<div class="bg-gray-50 min-h-screen flex flex-col items-center justify-center px-4 py-8 sm:py-12">
+<div class="bg-white min-h-screen flex flex-col items-center justify-center px-4 py-8 sm:py-12">
     <!-- Logo -->
     <div class="mb-6 opacity-0 translate-y-8 transition duration-700">
         <img src="{{ asset('/image/logo.png') }}" alt="Kantor Hukum" class="h-20 sm:h-24">

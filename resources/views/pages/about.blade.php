@@ -3,7 +3,7 @@
 @section('title', 'About Us')
 
 @section('content')
-<div class="flex flex-col items-center justify-center bg-gradient-to-br from-[#ffffff] via-[#fef6f6] to-[#fdecec] p-8">
+<div class="flex flex-col items-center justify-center bg-white p-8">
     <!-- Header Section -->
     <div id="header" class="text-center mb-12 opacity-0 translate-y-8 transition duration-700" data-aos="fade-up">
         <h1 class="text-4xl md:text-5xl font-extrabold text-[#582c2e]">
