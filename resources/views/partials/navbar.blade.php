@@ -26,7 +26,7 @@
             <!-- Logo and Navigation for Desktop -->
             <div class="flex flex-1 items-center justify-center lg:items-stretch lg:justify-start">
                 <div class="hidden lg:flex items-center">
-                    <img class="h-9 w-auto" src="/image/logo.png" alt="Logo">
+                    <img class="h-9 w-auto" src="/image/logo.png" alt="Logo Putu Armaya & Partners">
                     <span class="ml-2 text-lg font-semibold text-white"></span>
                 </div>
                 <div class="hidden lg:ml-6 lg:block">
@@ -41,7 +41,7 @@
 
             <!-- Call-to-Action Button -->
             <div class="absolute inset-y-0 right-0  items-center pr-2 lg:static lg:inset-auto lg:ml-6 lg:pr-0 hidden lg:flex">
-                <a href="https://wa.me/6281234567890?text=Halo,%20saya%20ingin%20konsultasi%20dengan%20Sari%20Law%20Office."
+                <a href="https://wa.me/6281234567890?text=Halo,%20saya%20ingin%20konsultasi%20dengan%20Putu%20Armaya%20%26%20Partners."
                     target="_blank"
                     class="flex items-center px-4 py-2 border border-[#B08C7A] rounded-md text-sm font-medium text-white hover:bg-[#870E18] hover:text-white">
                     <svg class="h-5 w-5 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">

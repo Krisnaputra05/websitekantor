@@ -1,66 +1,129 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Website Kantor
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Repository ini adalah sebuah aplikasi web berbasis Laravel (skeleton) yang sudah dikustomisasi untuk kebutuhan website kantor/media informasi. README ini memberi panduan cepat instalasi, pengembangan, dan build pada lingkungan pengembangan (Windows PowerShell).
 
-## About Laravel
+## Ringkasan teknis
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+-   Framework: Laravel ^11
+-   PHP: ^8.2
+-   Database default repo: SQLite (file: `database/database.sqlite`) — migrasi tersedia di `database/migrations`
+-   Frontend: Vite, TailwindCSS, React (opsional), AOS, Swiper
+-   Dependensi penting (composer): `consoletvs/charts`, `laravel/tinker`
+-   Dev tools: `barryvdh/laravel-debugbar`, `phpunit/phpunit`, `nunomaduro/collision`, `laravel/pint`
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Model utama di `app/Models`:
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+-   `Article` — konten artikel, terdapat migration & seeder
+-   `Category` — kategori artikel
+-   `Consultation` — (model konsultasi)
+-   `Contact` — (model kontak masuk)
+-   `User` — user aplikasi
 
-## Learning Laravel
+Seeder utama: `Database\Seeders\DatabaseSeeder` memanggil `UserSeeder`, `CategorySeeder`, `ArticleSeeder` (urutan seed sudah diatur).
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## Persyaratan sistem
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+-   PHP 8.2+
+-   Composer
+-   Node.js 18+ dan npm
+-   Git (opsional)
+-   PowerShell (instruksi contoh ada untuk PowerShell)
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## Instalasi (PowerShell)
 
-## Laravel Sponsors
+1. Clone repository dan masuk ke folder proyek:
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+```powershell
+git clone <repo-url> .
+cd c:\laragon\www\websitekantor
+```
 
-### Premium Partners
+2. Install dependency backend dan frontend:
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+```powershell
+composer install
+npm install
+```
+
+3. Siapkan environment:
+
+```powershell
+copy .env.example .env
+# Buat APP_KEY
+php artisan key:generate
+```
+
+4. (Jika belum ada) buat file SQLite (opsional) — contoh PowerShell:
+
+```powershell
+if (-not (Test-Path -Path "database\database.sqlite")) { New-Item -Path "database\database.sqlite" -ItemType File }
+```
+
+5. Migrasi dan seeder (jalankan di PowerShell):
+
+```powershell
+php artisan migrate --graceful
+php artisan db:seed
+```
+
+Catatan: `DatabaseSeeder` sudah memanggil `UserSeeder`, `CategorySeeder`, dan `ArticleSeeder`.
+
+## Menjalankan aplikasi (development)
+
+Cara cepat menjalankan server dan build frontend secara manual:
+
+```powershell
+php artisan serve --host=127.0.0.1 --port=8000
+npm run dev
+```
+
+Ada juga script Composer yang menjalankan beberapa proses bersamaan (lihat `composer.json` -> `scripts.dev`). Di Windows, Anda bisa langsung menjalankan perintah-perintah di atas atau pakai WSL untuk behavior POSIX yang lebih akurat.
+
+## Build untuk produksi
+
+```powershell
+npm run build
+php artisan config:cache
+php artisan route:cache
+php artisan view:cache
+```
+
+## Menjalankan test
+
+```powershell
+php artisan test
+# atau
+./vendor/bin/phpunit
+```
+
+## Struktur penting
+
+-   `app/Models` — model aplikasi (Article, Category, Consultation, Contact, User)
+-   `database/migrations` — migrasi skema database
+-   `database/seeders` — seeder data awal (`UserSeeder`, `CategorySeeder`, `ArticleSeeder`)
+-   `resources/js` & `resources/css` — sumber frontend untuk Vite
+-   `public/` — aset hasil build
+
+## Tips pengembangan
+
+-   Jika menambahkan file penyimpanan (storage), jalankan: `php artisan storage:link`
+-   Gunakan environment `APP_ENV=local` untuk mempermudah debugging
+-   Debugbar dapat diaktifkan lewat paket `barryvdh/laravel-debugbar` (dev)
 
 ## Contributing
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Silakan buka issue atau buat pull request. Sertakan deskripsi perubahan dan instruksi menjalankan fitur baru jika diperlukan.
 
-## Code of Conduct
+## Lisensi
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+Proyek ini mengikuti lisensi MIT (diturunkan dari skeleton Laravel). Periksa file `LICENSE` bila tersedia.
 
-## Security Vulnerabilities
+---
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Jika Anda mau, saya bisa:
 
-## License
+-   menambahkan bagian Quick Start spesifik (contoh credentials user dari seeder),
+-   menambahkan instruksi Docker/WSL, atau
+-   menulis skrip npm tambahan untuk workflow dev.
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Beritahu saya mana yang ingin ditambahkan.

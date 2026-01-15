@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', 'Artikel & Berita Hukum - Putu Armaya & Partners')
+
 @section('content')
 <header class="bg-[#A31621] text-white py-6 md:py-10 shadow-lg">
     <div class="container mx-auto px-4 text-center">
