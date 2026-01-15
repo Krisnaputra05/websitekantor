@@ -47,10 +47,10 @@ export default {
                 peach: "#F4E1D2",
                 taupe: "#B89C88",
                 beige: "#E5D3C5",
-                darkRed: '#8E0037',
-                lightRed: '#BA5D5D',
-                veryLightRed: '#F0D4D4',
-                tan: '#D2B48C',
+                darkRed: "#8E0037",
+                lightRed: "#BA5D5D",
+                veryLightRed: "#F0D4D4",
+                tan: "#D2B48C",
             },
             fontFamily: {
                 sans: ["Figtree", ...defaultTheme.fontFamily.sans],
@@ -71,7 +71,7 @@ export default {
             },
         },
     },
-    plugins: [require('@tailwindcss/line-clamp')],
+    plugins: [],
     safelist: [
         "bg-blue-500",
         "bg-red-500",
