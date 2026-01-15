@@ -16,7 +16,6 @@
         "vite": "^6.0"
     },
     "dependencies": {
-        "@tailwindcss/line-clamp": "^0.4.4",
         "@vitejs/plugin-react": "^4.3.4",
         "aos": "^2.3.4",
         "react": "^19.0.0",
